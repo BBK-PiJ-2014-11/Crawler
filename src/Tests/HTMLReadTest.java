@@ -34,7 +34,9 @@ public class HTMLReadTest {
 
     @Test
     public void testReadUntil() {
-
+        char ch1 = 'l';
+        char ch2 = ')';
+        assertTrue(reader.readUntil(is,ch1,ch2));
     }
 
     @Test
