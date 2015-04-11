@@ -33,10 +33,17 @@ public class HTMLReadTest {
     }
 
     @Test
-    public void testReadUntil() {
+    public void testReadUntilFirstChar() {
         char ch1 = 'l';
         char ch2 = ')';
         assertTrue(reader.readUntil(is,ch1,ch2));
+    }
+
+    @Test
+    public void testReadUntilSecondChar() {
+        char ch1 = ')';
+        char ch2 = 'l';
+        assertFalse(reader.readUntil(is,ch1,ch2));
     }
 
     @Test
