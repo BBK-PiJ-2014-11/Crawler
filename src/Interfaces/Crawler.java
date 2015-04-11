@@ -18,6 +18,14 @@ public interface Crawler {
     void crawl(URL url, String file) throws MalformedURLException;
 
     /**
+     * Creates a String from a url
+     *
+     * @param url the web page
+     * @return the url in String format
+     */
+    String parseURL (URL url); //nb possibly move to htmlread class?
+
+    /**
      * Establishes the homepath of the current webpage
      *
      * @param path the path of the link being analysed
