@@ -4,10 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 
 import static org.junit.Assert.*;
 
@@ -21,13 +18,18 @@ public class HTMLReadTest {
     public void setUp() throws FileNotFoundException {
         reader = new HTMLRead();
         is = new FileInputStream(file);
-
     }
 
     @After
     public void tearDown(){
+        try {
+            if(is != null){
+                is.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         reader = null;
-        is = null;
     }
 
     @Test
