@@ -75,6 +75,13 @@ public class HTMLReadTest {
     }
 
     @Test
+    public void testReadUntilFirstCharNumber() {
+        char ch1 = '8';
+        char ch2 = '0';
+        assertTrue(reader.readUntil(is,ch1,ch2));
+    }
+
+    @Test
     public void testSkipSpace() {
 
     }
