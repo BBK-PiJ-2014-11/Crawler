@@ -68,6 +68,13 @@ public class HTMLReadTest {
     }
 
     @Test
+    public void testReadUntilSecondCharTag() {
+        char ch1 = '>';
+        char ch2 = '<';
+        assertFalse(reader.readUntil(is,ch1,ch2));
+    }
+
+    @Test
     public void testSkipSpace() {
 
     }
