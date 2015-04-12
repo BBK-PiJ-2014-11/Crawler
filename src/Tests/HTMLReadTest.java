@@ -54,6 +54,13 @@ public class HTMLReadTest {
     }
 
     @Test
+    public void testReadUntilSecondCharCapitalised() {
+        char ch1 = 'A';
+        char ch2 = 'L';
+        assertFalse(reader.readUntil(is,ch1,ch2));
+    }
+
+    @Test
     public void testSkipSpace() {
 
     }
