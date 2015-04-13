@@ -1,5 +1,6 @@
 package Tests;
 
+import Implementations.HTMLRead;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +16,7 @@ public class HTMLReadTest {
      */
     private HTMLRead reader;
     private InputStream is;
-    private final File file = new File("htmlTest.html");
+    private final File file = new File("TestData/htmlTest.html");
 
     @Before
     public void setUp() throws FileNotFoundException {
