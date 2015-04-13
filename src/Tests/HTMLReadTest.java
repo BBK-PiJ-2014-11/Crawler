@@ -10,6 +10,9 @@ import static org.junit.Assert.*;
 
 public class HTMLReadTest {
 
+    /**
+     * Test HTMLRead constructor
+     */
     private HTMLRead reader;
     private InputStream is;
     private final File file = new File("htmlTest.html");
@@ -20,6 +23,9 @@ public class HTMLReadTest {
         is = new FileInputStream(file);
     }
 
+    /**
+     * Removing HTMLRead and closing InputStream
+     */
     @After
     public void tearDown(){
         try {
@@ -31,7 +37,17 @@ public class HTMLReadTest {
         }
         reader = null;
     }
+    /*
+    *
+    * TEST BATCH FOR ReadUntil
+    *
+    */
 
+    /**
+     * Test with first passed character occurring first
+     *
+     * Test should return true
+     */
     @Test
     public void testReadUntilFirstChar() {
         char ch1 = 'l';
@@ -39,6 +55,11 @@ public class HTMLReadTest {
         assertTrue(reader.readUntil(is,ch1,ch2));
     }
 
+    /**
+     * Test with second passed character occurring first
+     *
+     * Test should return false
+     */
     @Test
     public void testReadUntilSecondChar() {
         char ch1 = ')';
@@ -46,6 +67,12 @@ public class HTMLReadTest {
         assertFalse(reader.readUntil(is,ch1,ch2));
     }
 
+    /**
+     * Test with first passed character occurring first
+     * Character Capitalised in this instance
+     *
+     * Test should return true
+     */
     @Test
     public void testReadUntilFirstCharCapitalised() {
         char ch1 = 'L';
@@ -53,6 +80,12 @@ public class HTMLReadTest {
         assertTrue(reader.readUntil(is,ch1,ch2));
     }
 
+    /**
+     * Test with second passed character occurring first
+     * Character Capitalised in this instance
+     *
+     * Test should return false
+     */
     @Test
     public void testReadUntilSecondCharCapitalised() {
         char ch1 = 'A';
@@ -60,6 +93,12 @@ public class HTMLReadTest {
         assertFalse(reader.readUntil(is,ch1,ch2));
     }
 
+    /**
+     * Test with first passed character occurring first
+     * Checking html tags
+     *
+     * Test should return true
+     */
     @Test
     public void testReadUntilFirstCharTag() {
         char ch1 = '<';
@@ -67,6 +106,12 @@ public class HTMLReadTest {
         assertTrue(reader.readUntil(is,ch1,ch2));
     }
 
+    /**
+     * Test with second passed character occurring first
+     * Checking html tags
+     *
+     * Test should return false
+     */
     @Test
     public void testReadUntilSecondCharTag() {
         char ch1 = '>';
@@ -74,6 +119,12 @@ public class HTMLReadTest {
         assertFalse(reader.readUntil(is,ch1,ch2));
     }
 
+    /**
+     * Test with first passed character occurring first
+     * Checking numbers
+     *
+     * Test should return true
+     */
     @Test
     public void testReadUntilFirstCharNumber() {
         char ch1 = '8';
@@ -81,6 +132,12 @@ public class HTMLReadTest {
         assertTrue(reader.readUntil(is,ch1,ch2));
     }
 
+    /**
+     * Test with second passed character occurring first
+     * Checking numbers
+     *
+     * Test should return false
+     */
     @Test
     public void testReadUntilSecondCharNumber() {
         char ch1 = '0';
