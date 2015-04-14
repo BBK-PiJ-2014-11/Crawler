@@ -249,4 +249,17 @@ public class HTMLReadTest {
         String str = "<!DOCTYPE html>\n" + "<html>\n" + "<head lang=\"en\">\n" + "<meta charset=\"UTF-8";
         assertEquals(str, reader.readString(is, ch1, ch2));
     }
+
+    /**
+     * Test with ch2 occurring first
+     * Checking numbers
+     *
+     * Test should return null
+     */
+    @Test
+    public void testReadStringSecondCharNumber() {
+        char ch1 = '0';
+        char ch2 = '8';
+        assertNull(reader.readString(is, ch1, ch2));
+    }
 }
