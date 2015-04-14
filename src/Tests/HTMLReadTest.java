@@ -151,8 +151,16 @@ public class HTMLReadTest {
 
     }
 
+    /**
+     * Test with ch1 occurring first
+     *
+     * Test should return the String declaration
+     */
     @Test
     public void testReadString() {
-
+        char ch1 = 'l';
+        char ch2 = 'a';
+        String declaration = "<!DOCTYPE html";
+        assertEquals(declaration, reader.readString(is, ch1, ch2));
     }
 }
