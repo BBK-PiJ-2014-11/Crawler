@@ -222,4 +222,17 @@ public class HTMLReadTest {
         String tag = "<";
         assertEquals(tag, reader.readString(is, ch1, ch2));
     }
+
+    /**
+     * Test with ch2 occurring first
+     * Checking html tags
+     *
+     * Test null
+     */
+    @Test
+    public void testReadStringSecondCharTag() {
+        char ch1 = '>';
+        char ch2 = '<';
+        assertNull(reader.readString(is, ch1, ch2));
+    }
 }
