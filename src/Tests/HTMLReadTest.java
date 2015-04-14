@@ -168,6 +168,7 @@ public class HTMLReadTest {
         String declaration = "<!DOCTYPE html";
         assertEquals(declaration, reader.readString(is, ch1, ch2));
     }
+
     /**
      * Test with ch2 occurring first
      *
@@ -178,5 +179,19 @@ public class HTMLReadTest {
         char ch1 = 'a';
         char ch2 = 'l';
         assertNull(reader.readString(is, ch1, ch2));
+    }
+
+    /**
+     * Test with ch1 occurring first
+     * Character Capitalised in this instance
+     *
+     * Test should return the String declaration
+     */
+    @Test
+    public void testReadStringFirstCharCapitalised() {
+        char ch1 = 'T';
+        char ch2 = 'A';
+        String declaration = "<!DOCT";
+        assertEquals(declaration, reader.readString(is, ch1, ch2));
     }
 }
