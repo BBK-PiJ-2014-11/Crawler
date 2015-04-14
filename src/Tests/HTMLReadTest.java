@@ -40,7 +40,7 @@ public class HTMLReadTest {
     }
     /*
     *
-    * TEST BATCH FOR ReadUntil
+    * TEST BATCH FOR readUntil
     *
     */
 
@@ -150,6 +150,11 @@ public class HTMLReadTest {
     public void testSkipSpace() {
 
     }
+    /*
+    *
+    * TEST BATCH FOR readString
+    *
+    */
 
     /**
      * Test with ch1 occurring first
@@ -157,10 +162,21 @@ public class HTMLReadTest {
      * Test should return the String declaration
      */
     @Test
-    public void testReadString() {
+    public void testReadStringFirstChar() {
         char ch1 = 'l';
         char ch2 = 'a';
         String declaration = "<!DOCTYPE html";
         assertEquals(declaration, reader.readString(is, ch1, ch2));
+    }
+    /**
+     * Test with ch2 occurring first
+     *
+     * Test should null
+     */
+    @Test
+    public void testReadStringSecondChar() {
+        char ch1 = 'a';
+        char ch2 = 'l';
+        assertNull(reader.readString(is, ch1, ch2));
     }
 }
