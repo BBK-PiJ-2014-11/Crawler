@@ -194,4 +194,18 @@ public class HTMLReadTest {
         String declaration = "<!DOCT";
         assertEquals(declaration, reader.readString(is, ch1, ch2));
     }
+
+    /**
+     * Test with ch2 occurring first
+     * Character Capitalised in this instance which occure before lower case
+     * version in test file
+     *
+     * Test should null
+     */
+    @Test
+    public void testReadStringSecondCharCapitalised() {
+        char ch1 = 't';
+        char ch2 = 'T';
+        assertNull(reader.readString(is, ch1, ch2));
+    }
 }
