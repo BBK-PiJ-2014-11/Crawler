@@ -31,6 +31,22 @@ public class HTMLRead implements Reader {
 
     @Override
     public String readString(InputStream is, char ch1, char ch2) {
+        int x;
+        String str = "";
+        try {
+            while((x = is.read()) != -1){
+                if ((char) x == ch1) {
+                    str += (char) x;
+                    return str;
+                }
+                else if((char) x == ch2)
+                    return null;
+                else
+                    str += (char) x;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
