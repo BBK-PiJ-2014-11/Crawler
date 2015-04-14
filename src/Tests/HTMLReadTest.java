@@ -172,7 +172,7 @@ public class HTMLReadTest {
     /**
      * Test with ch2 occurring first
      *
-     * Test should null
+     * Test should return null
      */
     @Test
     public void testReadStringSecondChar() {
@@ -200,7 +200,7 @@ public class HTMLReadTest {
      * Character Capitalised in this instance which occure before lower case
      * version in test file
      *
-     * Test should null
+     * Test should return null
      */
     @Test
     public void testReadStringSecondCharCapitalised() {
@@ -213,7 +213,7 @@ public class HTMLReadTest {
      * Test with ch1 occurring first
      * Checking html tags
      *
-     * Test should the String tag
+     * Test should return the String tag
      */
     @Test
     public void testReadStringFirstCharTag() {
@@ -227,12 +227,26 @@ public class HTMLReadTest {
      * Test with ch2 occurring first
      * Checking html tags
      *
-     * Test null
+     * Test should return null
      */
     @Test
     public void testReadStringSecondCharTag() {
         char ch1 = '>';
         char ch2 = '<';
         assertNull(reader.readString(is, ch1, ch2));
+    }
+
+    /**
+     * Test with ch1 occurring first
+     * Checking numbers
+     *
+     * Test should return the String str
+     */
+    @Test
+    public void testReadStringFirstCharNumber() {
+        char ch1 = '8';
+        char ch2 = '0';
+        String str = "<!DOCTYPE html>\n" + "<html>\n" + "<head lang=\"en\">\n" + "<meta charset=\"UTF-8";
+        assertEquals(str, reader.readString(is, ch1, ch2));
     }
 }
