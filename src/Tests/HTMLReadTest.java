@@ -174,6 +174,28 @@ public class HTMLReadTest {
         char firstCharacter = '<';
         assertEquals(firstCharacter, reader.skipSpace(is, ch));
     }
+
+    /**
+     * Test to check multiple calls of skip space sequentially
+     *
+     * Test should return as expected...
+     */
+    @Test
+    public void testSkipSpaceMultiple() {
+        //passing the first non-whitespace character
+        char firstCharacter = '<';
+        char minValue = Character.MIN_VALUE;
+        assertEquals(minValue, reader.skipSpace(is, firstCharacter));
+
+        //passing an arbitrary character
+        char arbitraryCharacter = 'a';
+        char nextCharacter = '!';
+        assertEquals(nextCharacter, reader.skipSpace(is, arbitraryCharacter));
+
+        //passing the next non-whitespace character
+        char thirdCharacter = 'D';
+        assertEquals(minValue, reader.skipSpace(is, thirdCharacter ));
+    }
     /*
     *
     * TEST BATCH FOR readString
