@@ -176,6 +176,18 @@ public class HTMLReadTest {
     }
 
     /**
+     * Test with ch as a whitespace character
+     *
+     * Test should return char firstCharacter
+     */
+    @Test
+    public void testSkipSpaceWithWhiteSpace() {
+        char ch = ' ';
+        char firstCharacter = '<';
+        assertEquals(firstCharacter, reader.skipSpace(is, ch));
+    }
+
+    /**
      * Test to check multiple calls of skip space sequentially
      *
      * Test should return as expected...
