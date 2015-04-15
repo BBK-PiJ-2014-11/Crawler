@@ -208,6 +208,29 @@ public class HTMLReadTest {
         char thirdCharacter = 'D';
         assertEquals(minValue, reader.skipSpace(is, thirdCharacter ));
     }
+
+    /**
+     * Test with ch as a number character
+     *
+     * Test should return char minValue
+     */
+    @Test
+    public void testSkipSpaceNumbers() throws FileNotFoundException {
+        //new input file
+        InputStream newStream = new FileInputStream("TestData/skipSpaceTest.html");
+
+        char minValue = Character.MIN_VALUE;
+
+        //skipping comment deceleration
+        reader.skipSpace(newStream, '<');
+        reader.skipSpace(newStream, '!');
+        reader.skipSpace(newStream, '-');
+        reader.skipSpace(newStream, '-');
+
+        //passing next number
+        char nextChar = '1';
+        assertEquals(minValue, reader.skipSpace(newStream, nextChar));
+    }
     /*
     *
     * TEST BATCH FOR readString
