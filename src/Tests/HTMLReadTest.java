@@ -145,10 +145,17 @@ public class HTMLReadTest {
         char ch2 = '8';
         assertFalse(reader.readUntil(is,ch1,ch2));
     }
+    /*
+    *
+    * TEST BATCH FOR skipSpace
+    *
+    */
 
     @Test
     public void testSkipSpace() {
-
+        char ch = '<';
+        char minValue = Character.MIN_VALUE;
+        assertEquals(minValue, reader.skipSpace(is, ch));
     }
     /*
     *
