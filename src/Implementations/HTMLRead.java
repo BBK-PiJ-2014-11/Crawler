@@ -6,6 +6,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class HTMLRead implements Reader {
+
+    /**
+     * HTMLRead class constructor
+     *
+     * Creates a new instance of the html parser
+     */
+    public HTMLRead(){
+
+    }
     /**
      * {@inheritDoc}
      */
