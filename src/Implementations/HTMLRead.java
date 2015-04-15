@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class HTMLRead implements Reader {
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean readUntil(InputStream is, char ch1, char ch2) {
         int x;
@@ -23,12 +25,16 @@ public class HTMLRead implements Reader {
         }
         return false;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public char skipSpace(InputStream is, char ch) {
         return 0;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String readString(InputStream is, char ch1, char ch2) {
         int x;
