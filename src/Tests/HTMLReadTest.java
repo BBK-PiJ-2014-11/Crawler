@@ -151,11 +151,28 @@ public class HTMLReadTest {
     *
     */
 
+    /**
+     * Test with ch as first non-whitespace character
+     *
+     * Test should return char minValue
+     */
     @Test
-    public void testSkipSpace() {
+    public void testSkipSpaceCharFound() {
         char ch = '<';
         char minValue = Character.MIN_VALUE;
         assertEquals(minValue, reader.skipSpace(is, ch));
+    }
+
+    /**
+     * Test with ch not first non-whitespace character
+     *
+     * Test should return char firstCharacter
+     */
+    @Test
+    public void testSkipSpaceCharNotFound() {
+        char ch = 'a';
+        char firstCharacter = '<';
+        assertEquals(firstCharacter, reader.skipSpace(is, ch));
     }
     /*
     *
