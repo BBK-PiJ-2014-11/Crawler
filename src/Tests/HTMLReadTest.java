@@ -265,6 +265,11 @@ public class HTMLReadTest {
         //passing next number
         char nextChar = 'H';
         assertEquals(nextChar , reader.skipSpace(newStream, firstChar));
+
+        //checking that method does not ignore case
+        char upperCase = 'I'; // the char to be checked for
+        char lowerCase = 'i'; // the actual char  next in file
+        assertEquals(lowerCase , reader.skipSpace(newStream, upperCase));
     }
     /*
     *
