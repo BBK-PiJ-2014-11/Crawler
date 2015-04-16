@@ -212,7 +212,7 @@ public class HTMLReadTest {
     /**
      * Test with ch as a number character
      *
-     * Test should return char minValue
+     * Test should return return as expected...
      */
     @Test
     public void testSkipSpaceNumbers() throws FileNotFoundException {
@@ -228,8 +228,12 @@ public class HTMLReadTest {
         reader.skipSpace(newStream, '-');
 
         //passing next number
-        char nextChar = '1';
-        assertEquals(minValue, reader.skipSpace(newStream, nextChar));
+        char firstNo = '1';
+        assertEquals(minValue, reader.skipSpace(newStream, firstNo));
+
+        //passing next number
+        char nextNo = '0';
+        assertEquals(nextNo , reader.skipSpace(newStream, firstNo));
     }
     /*
     *
