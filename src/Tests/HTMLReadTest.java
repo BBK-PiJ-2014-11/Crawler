@@ -235,6 +235,37 @@ public class HTMLReadTest {
         char nextNo = '0';
         assertEquals(nextNo , reader.skipSpace(newStream, firstNo));
     }
+
+    /**
+     * Test with ch as a capitalised character
+     *
+     * Test should return return as expected...
+     */
+    @Test
+    public void testSkipSpaceCapitalised() throws FileNotFoundException {
+        //new input file
+        InputStream newStream = new FileInputStream("TestData/skipSpaceTest.html");
+
+        char minValue = Character.MIN_VALUE;
+
+        //skipping comment deceleration
+        reader.skipSpace(newStream, '<');
+        reader.skipSpace(newStream, '!');
+        reader.skipSpace(newStream, '-');
+        reader.skipSpace(newStream, '-');
+
+        //skipping first two number characters
+        reader.skipSpace(newStream, '1');
+        reader.skipSpace(newStream, '0');
+
+        //passing next number
+        char firstChar = 'T';
+        assertEquals(minValue, reader.skipSpace(newStream, firstChar));
+
+        //passing next number
+        char nextChar = 'H';
+        assertEquals(nextChar , reader.skipSpace(newStream, firstChar));
+    }
     /*
     *
     * TEST BATCH FOR readString
