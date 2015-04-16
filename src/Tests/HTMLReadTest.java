@@ -270,6 +270,11 @@ public class HTMLReadTest {
         char upperCase = 'I'; // the char to be checked for
         char lowerCase = 'i'; // the actual char  next in file
         assertEquals(lowerCase , reader.skipSpace(newStream, upperCase));
+
+        //checking that method does not ignore case (reversal of tested characters)
+        char nxtLowerCase = 's'; // the char to be checked for
+        char nxtUpperCase = 'S'; // the actual char  next in file
+        assertEquals(nxtUpperCase , reader.skipSpace(newStream, nxtLowerCase));
     }
     /*
     *
