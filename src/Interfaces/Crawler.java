@@ -44,6 +44,14 @@ public interface Crawler {
     String absoulutePath(String url, String link, String homePath);
 
     /**
+     * Checks if an input contains a specific sequence of characters
+     *
+     * @param searchStr String to be checked for
+     * @return true if the search String is preset, false if not
+     */
+    Boolean searchString (String searchStr);
+
+    /**
      * Default search method
      *
      * @param url the web page to be scraped for links
