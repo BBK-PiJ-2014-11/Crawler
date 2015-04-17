@@ -227,11 +227,11 @@ public class HTMLReadTest {
         reader.skipSpace(newStream, '-');
         reader.skipSpace(newStream, '-');
 
-        //passing next number
+        //passing the next character
         char firstNo = '1';
         assertEquals(minValue, reader.skipSpace(newStream, firstNo));
 
-        //passing next number
+        //passing character that will not be encountered
         char nextNo = '0';
         assertEquals(nextNo , reader.skipSpace(newStream, firstNo));
     }
@@ -258,11 +258,11 @@ public class HTMLReadTest {
         reader.skipSpace(newStream, '1');
         reader.skipSpace(newStream, '0');
 
-        //passing next number
+        //passing the next characterr
         char firstChar = 'T';
         assertEquals(minValue, reader.skipSpace(newStream, firstChar));
 
-        //passing next number
+        //passing character that will not be encountered
         char nextChar = 'H';
         assertEquals(nextChar , reader.skipSpace(newStream, firstChar));
 
