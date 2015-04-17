@@ -372,7 +372,12 @@ public class HTMLReadTest {
     public void testReadStringFirstCharNumber() {
         char ch1 = '8';
         char ch2 = '0';
-        String str = "<!DOCTYPE html>\n" + "<html>\n" + "<head lang=\"en\">\n" + "<meta charset=\"UTF-8";
+        //String s = "<!DOCTYPE html>\n" + "<html>\n" + "<head lang=\"en\">\n" + "<meta charset=\"UTF-8";
+        String str =
+                "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head lang=\"en\">\n" +
+                "    <meta charset=\"UTF-8";
         assertEquals(str, reader.readString(is, ch1, ch2));
     }
 
