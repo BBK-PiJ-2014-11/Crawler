@@ -36,6 +36,8 @@ public class HTMLRead implements Reader {
     }
     /**
      * {@inheritDoc}
+     *
+     * N.B. characters will be case sensitive
      */
     @Override
     public char skipSpace(InputStream is, char ch) {
