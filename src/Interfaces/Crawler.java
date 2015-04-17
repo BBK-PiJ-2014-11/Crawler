@@ -1,7 +1,9 @@
 package Interfaces;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.util.List;
 
 /**
  * A class to scrape web-pages for links
@@ -18,6 +20,14 @@ public interface Crawler {
     void crawl(URL url, String file) throws MalformedURLException;
 
     /**
+     * Creates a list of links scraped from a web-page
+     *
+     * @param is the input stream to be read
+     * @return the list of scraped urls
+     */
+    List<URL> getLinks (InputStream is);
+
+    /**
      * Creates a String from a url
      *
      * @param url the web page
@@ -26,30 +36,30 @@ public interface Crawler {
     String parseURL (URL url); //nb possibly move to htmlread class?
 
     /**
-     * Establishes the homepath of the current webpage
+     * Establishes the homepath of the current web-page
      *
      * @param path the path of the link being analysed
      * @return the the home path of the initial page
      */
-    String homePath (String path);
+    String getHomePath (String path);
 
     /**
-     * Creates an absoulte path for link if its path is relative to home
+     * Creates an absolute path for link if its path is relative to home
      *
      * @param url the current url being visited
      * @param link the path of the link being analysed
      * @param homePath the homePath of the site
      * @return the absolute path of the analysed link
      */
-    String absoulutePath(String url, String link, String homePath);
+    String setAbsolutePath (String url, String link, String homePath);
 
     /**
      * Checks if an input contains a specific sequence of characters
      *
-     * @param searchStr String to be checked for
+     * @param checkStr String to be checked for
      * @return true if the search String is preset, false if not
      */
-    Boolean searchString (String searchStr);
+    Boolean checkString (String checkStr);
 
     /**
      * Default search method
