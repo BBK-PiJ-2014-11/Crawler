@@ -39,7 +39,19 @@ public class HTMLRead implements Reader {
      */
     @Override
     public char skipSpace(InputStream is, char ch) {
-        return 0;
+        int x;
+        try {
+            while ((x = is.read()) != -1) {
+                if ((char) x == ch){
+                    return Character.MIN_VALUE;
+                }else if (!Character.isWhitespace(x)){
+                    return (char) x;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Character.MIN_VALUE;
     }
     /**
      * {@inheritDoc}
