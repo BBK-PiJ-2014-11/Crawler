@@ -11,13 +11,13 @@ import static org.junit.Assert.*;
 
 public class HTMLReadTest {
 
-    /**
-     * Test HTMLRead constructor
-     */
     private HTMLRead reader;
     private InputStream is;
     private final File file = new File("TestData/htmlTest.html");
 
+    /**
+     * Test HTMLRead setup
+     */
     @Before
     public void setUp() throws FileNotFoundException {
         reader = new HTMLRead();
