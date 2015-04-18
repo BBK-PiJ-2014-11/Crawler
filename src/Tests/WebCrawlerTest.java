@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -49,6 +50,21 @@ public class WebCrawlerTest {
     public void testFileURLExists() throws IOException {
         URLConnection con = linksPage.openConnection();
         assertEquals("text/html", con.getContentType() );
+    }
+
+    /**
+     * Test to check if web-page exists and can be accessed via http
+     * Checking for http 200 status code (request successful)
+     *
+     * Test should return true
+     */
+    @Test
+    public void testURLExists() throws IOException {
+        HttpURLConnection.setFollowRedirects(false);
+        HttpURLConnection con = (HttpURLConnection) webPage.openConnection();
+        con.setRequestMethod("HEAD");
+        assertTrue (con.getResponseCode() == HttpURLConnection.HTTP_OK);
+
     }
 
     @Test
