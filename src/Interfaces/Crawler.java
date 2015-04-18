@@ -28,14 +28,6 @@ public interface Crawler {
     List<URL> getLinks (InputStream is);
 
     /**
-     * Creates a String from a url
-     *
-     * @param url the web page
-     * @return the url in String format
-     */
-    String parseURL (URL url); //nb possibly move to htmlread class?
-
-    /**
      * Establishes the homepath of the current web-page
      *
      * @param path the path of the link being analysed
@@ -56,10 +48,11 @@ public interface Crawler {
     /**
      * Checks if an input contains a specific sequence of characters
      *
+     * @param is the input stream to be read
      * @param checkStr String to be checked for
      * @return true if the search String is preset, false if not
      */
-    Boolean checkString (String checkStr);
+    Boolean checkString (InputStream is,String checkStr);
 
     /**
      * Default search method
