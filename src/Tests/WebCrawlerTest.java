@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.*;
 
@@ -97,9 +98,17 @@ public class WebCrawlerTest {
 
     }
 
+    /**
+     * Test to check if continuous sequence of chars can be successfully read from string
+     * (ignoring whitespace)
+     *
+     * Test should return true
+     */
     @Test
-    public void testCheckString()  {
-
+    public void testCheckString() throws IOException {
+        String testStr = "<a   href=\"http://ehshan.com/\">Link 1</a>";
+        InputStream is = new ByteArrayInputStream(testStr.getBytes(StandardCharsets.UTF_8));
+        assertTrue(crawler.checkString(is, "<ahref"));
     }
 
     @Test
