@@ -5,8 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,6 +18,9 @@ public class WebCrawlerTest {
     private WebCrawler crawler;
     private URL linksPage; //local html file to be tested
     private URL webPage;  //web-page to be tested via http connection
+    private URL secondPage; //link to be retrieved
+    private URL thirdPage; //link to be retrieved
+    private URL fourthPage; //link to be retrieved
     private String filename; //name of database
     private File database;
 
@@ -30,6 +32,9 @@ public class WebCrawlerTest {
         crawler = new WebCrawler();
         linksPage = new URL("file:TestData/linksPage.html");
         webPage = new URL ("http://ehshan.com/");
+        secondPage = new URL ("http://ehshan.com/");
+        thirdPage = new URL ("http://ehshan.com/portfolio");
+        fourthPage = new URL ("http://ehshan.com/contact/gallery");
         database = new File("filename");
     }
 
