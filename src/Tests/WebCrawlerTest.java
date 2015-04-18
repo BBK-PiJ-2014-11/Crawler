@@ -6,8 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
 import static org.junit.Assert.*;
 
@@ -36,6 +38,17 @@ public class WebCrawlerTest {
     @After
     public void tearDown()  {
         crawler = null;
+    }
+
+    /**
+     * Test to check if local html file exists and can be referenced via url
+     *
+     * Test should return the file content type
+     */
+    @Test
+    public void testFileURLExists() throws IOException {
+        URLConnection con = linksPage.openConnection();
+        assertEquals("text/html", con.getContentType() );
     }
 
     @Test
