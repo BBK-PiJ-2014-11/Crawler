@@ -90,10 +90,10 @@ public class WebCrawlerTest {
         List urlList = crawler.getLinks(is);
 
         //converting URL to Strings
-        String home = webPage.toString();
-        String portfolio = secondPage.toString();
-        String contact = thirdPage.toString();
-        String gallery = fourthPage.toString();
+        String home = "\""+webPage.toString()+"\"";
+        String portfolio = "\""+secondPage.toString()+"\"";
+        String contact = "\""+thirdPage.toString()+"\"";
+        String gallery = "\""+fourthPage.toString()+"\"";
 
         //check list contain all links
         assertEquals(home,urlList.get(0));
