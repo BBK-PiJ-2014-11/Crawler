@@ -142,4 +142,21 @@ public class WebCrawlerTest {
 
     }
 
+    /**
+     * Additional method to check whether a list contains a url
+     * (useful for pages with large amounts of links)
+     *
+     * @param urlList the list to be searched
+     * @param link the linkk to be searched for
+     * @return true if link found found, false if not
+     */
+    private boolean linkFound(List<String> urlList, String link) {
+        boolean found = false;
+        for (String url : urlList) {
+            if (url.equals(link)) {
+                found = true;
+            }
+        }
+        return found;
+    }
 }
