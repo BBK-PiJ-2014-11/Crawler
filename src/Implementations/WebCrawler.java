@@ -35,7 +35,7 @@ public class WebCrawler implements Crawler {
     public List<URL> getLinks(InputStream is) {
         return null;
     }
-    
+
 
     @Override
     public String getHomePath(String path) {
@@ -48,8 +48,13 @@ public class WebCrawler implements Crawler {
     }
 
     @Override
-    public Boolean checkString(InputStream is, String checkStr) {
-        return null;
+    public Boolean checkString(InputStream is,String checkStr) {
+        for (char ch: checkStr.toCharArray()) {
+            if(reader.skipSpace(is,ch)!= Character.MIN_VALUE){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
