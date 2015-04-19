@@ -3,9 +3,11 @@ package Implementations;
 import Interfaces.Crawler;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 
 public class WebCrawler implements Crawler {
@@ -32,10 +34,22 @@ public class WebCrawler implements Crawler {
     }
 
     @Override
-    public List<URL> getLinks(InputStream is) {
-        return null;
+    public List<URL> getLinks(InputStream is) throws IOException {
+        List urlList = new LinkedList<>();
+        String url;
+        while ((is.read() != -1)) {
+            if(reader.readUntil(is,'<','>')){
+                if (checkString(is, "ahref")) {
+                    if (reader.readUntil(is, '=', '>')) {
+                        url = reader.readString(is,'"','>');
+                        url += reader.readString(is, '"','>');
+                        urlList.add(url);
+                    }
+                }
+            }
+        }
+        return urlList;
     }
-
 
     @Override
     public String getHomePath(String path) {

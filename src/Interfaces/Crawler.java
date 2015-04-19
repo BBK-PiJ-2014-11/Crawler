@@ -1,5 +1,6 @@
 package Interfaces;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -25,7 +26,7 @@ public interface Crawler {
      * @param is the input stream to be read
      * @return the list of scraped urls
      */
-    List<URL> getLinks (InputStream is);
+    List<URL> getLinks (InputStream is) throws IOException;
 
     /**
      * Establishes the homepath of the current web-page
