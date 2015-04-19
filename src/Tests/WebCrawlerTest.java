@@ -111,6 +111,18 @@ public class WebCrawlerTest {
         assertTrue(crawler.checkString(is, "<ahref"));
     }
 
+    /**
+     * Test to confirm that method will only work is chars are continuous from start of InputStream
+     *
+     * Test should return false
+     */
+    @Test
+    public void testCheckStringFromMiddle() throws IOException {
+        String testStr = "<a   href=\"http://ehshan.com/\">Link 1</a>";
+        InputStream is = new ByteArrayInputStream(testStr.getBytes(StandardCharsets.UTF_8));
+        assertFalse(crawler.checkString(is, "http://"));
+    }
+
     @Test
     public void testSearch()  {
 
