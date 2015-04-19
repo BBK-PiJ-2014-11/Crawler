@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -33,9 +34,9 @@ public class WebCrawlerTest {
         crawler = new WebCrawler();
         linksPage = new URL("file:TestData/linksPage.html");
         webPage = new URL ("http://ehshan.com/");
-        secondPage = new URL ("http://ehshan.com/");
-        thirdPage = new URL ("http://ehshan.com/portfolio");
-        fourthPage = new URL ("http://ehshan.com/contact/gallery");
+        secondPage = new URL ("http://ehshan.com/portfolio");
+        thirdPage = new URL ("http://ehshan.com/contact");
+        fourthPage = new URL ("http://ehshan.com/gallery");
         database = new File("filename");
     }
 
@@ -78,14 +79,27 @@ public class WebCrawlerTest {
 
     }
 
+    /**
+     * Test to check if html file can be successfully scraped for links
+     *
+     * Test should return a list contain all links found, as Strings
+     */
     @Test
-    public void testGetLinks()  {
+    public void testGetLinks() throws IOException {
+        InputStream is = linksPage.openStream();
+        List urlList = crawler.getLinks(is);
 
-    }
+        //converting URL to Strings
+        String home = webPage.toString();
+        String portfolio = secondPage.toString();
+        String contact = thirdPage.toString();
+        String gallery = fourthPage.toString();
 
-    @Test
-    public void testParseURL()  {
-
+        //check list contain all links
+        assertEquals(home,urlList.get(0));
+        assertEquals(portfolio ,urlList.get(1));
+        assertEquals(contact ,urlList.get(2));
+        assertEquals(gallery ,urlList.get(3));
     }
 
     @Test
