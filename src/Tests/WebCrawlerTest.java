@@ -102,6 +102,29 @@ public class WebCrawlerTest {
         assertEquals(gallery ,urlList.get(3));
     }
 
+    /**
+     * Test to check if web-page can be successfully scraped for links
+     *
+     * Test should return a list contain all links found, as Strings
+     */
+    @Test
+    public void testGetLinksWithHttp() throws IOException {
+        InputStream is = webPage.openStream();
+        List urlList = crawler.getLinks(is);
+
+        //converting URL to Strings (urls form navigation bar)
+        String home = "\""+webPage.toString()+"\"";
+        String portfolio = "\""+secondPage.toString()+"\"";
+        String contact = "\""+thirdPage.toString()+"\"";
+        String gallery = "\""+fourthPage.toString()+"\"";
+
+        //check list contain all links
+        assertEquals(home,urlList.get(0));
+        assertEquals(portfolio ,urlList.get(1));
+        assertEquals(contact ,urlList.get(2));
+        assertEquals(gallery ,urlList.get(3));
+    }
+
     @Test
     public void testGetHomePath()  {
 
