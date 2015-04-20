@@ -148,6 +148,23 @@ public class WebCrawlerTest {
         assertEquals(gallery ,urlList.get(3));
     }
 
+    /**
+     * Test to relative link can be successfully captured with full address
+     *
+     * Test should return a list contain all links found, as Strings
+     */
+    @Test
+    public void testGetRelativeLink() throws IOException {
+        InputStream is = new URL ("http://ehshan.com/crawler").openStream();
+        List urlList = crawler.getLinks(is);
+
+        //this link is present on searched page as <a href="books.php">
+        String relative = "http://ehshan.com/books.php";
+
+        //check that desired link is present in returned list
+        assertTrue(linkFound(urlList, relative ));
+    }
+
     @Test
     public void testGetHomePath()  {
 
