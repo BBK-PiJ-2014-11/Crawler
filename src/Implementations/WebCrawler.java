@@ -19,6 +19,7 @@ public class WebCrawler implements Crawler {
     private int maxDepth;
     private int priorityNo;
     private URL currentPage;
+    private String currentHomePage;
 
     public WebCrawler() {
         reader = new HTMLRead();
@@ -49,6 +50,9 @@ public class WebCrawler implements Crawler {
                             url = reader.readString(is, '>', (char) -1);
                         }
                         System.out.println(url);
+                        if (!(getHomePath(url).equals(""))){
+                            currentHomePage = getHomePath(url);
+                        }
                         //remove link referring to same page
                         if(url.equals("#") || url.equals(currentPage.toString())){
                             System.out.println("Link same page");
