@@ -173,17 +173,47 @@ public class WebCrawlerTest {
      * Test should return the homepage of the site being visited
      */
     @Test
-    public void testGetHomePath()  {
+    public void testGetHomePage()  {
         //page will be -> http://ehshan.com/contact
         String contactPage = thirdPage.toString();
-        String homePath = crawler.getHomePath(contactPage);
+        InputStream is = new ByteArrayInputStream(contactPage.getBytes(StandardCharsets.UTF_8));
+        String homePage = crawler.getHomePage(is);
 
         //expect result will be -> http://ehshan.com/
-        assertEquals(homePath, webPage.toString());
+        assertEquals(homePage, webPage.toString());
+    }
+
+    /**
+     * Test to check whether the homepage of a (long) absolute  link can be
+     * successfully returned
+     *
+     * Test should return the homepage of the site being visited
+     */
+    @Test
+    public void testGetHomePageMockPage()  {
+        String mockPage = "http://www.bbc.co.uk/sport/football/arsenal/fixtures";
+        InputStream is = new ByteArrayInputStream(mockPage.getBytes(StandardCharsets.UTF_8));
+        String mockHome = crawler.getHomePage(is);
+
+        assertEquals(mockHome, "http://www.bbc.co.uk/");
+    }
+
+    /**
+     * Test on  a relative link
+     *
+     * Test should return an empty String
+     */
+    @Test
+    public void testGetHomePageRelativeLink()  {
+        String mockPage = "/gallery";
+        InputStream is = new ByteArrayInputStream(mockPage.getBytes(StandardCharsets.UTF_8));
+        String mockHome = crawler.getHomePage(is);
+
+        assertEquals(mockHome, "");
     }
 
     @Test
-    public void testSetAbsolutePath()  {
+         public void testSetAbsolutePath()  {
 
     }
 
