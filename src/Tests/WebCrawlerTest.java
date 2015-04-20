@@ -149,7 +149,8 @@ public class WebCrawlerTest {
     }
 
     /**
-     * Test to relative link can be successfully captured with full address
+     * Test to check whether relative link can be successfully captured
+     * with full address
      *
      * Test should return a list contain all links found, as Strings
      */
@@ -165,9 +166,20 @@ public class WebCrawlerTest {
         assertTrue(linkFound(urlList, relative ));
     }
 
+    /**
+     * Test to check whether the homepage of a visited page can be
+     * successfully returned
+     *
+     * Test should return the homepage of the site being visited
+     */
     @Test
     public void testGetHomePath()  {
+        //page will be -> http://ehshan.com/contact
+        String contactPage = thirdPage.toString();
+        String homePath = crawler.getHomePath(contactPage);
 
+        //expect result will be -> http://ehshan.com/
+        assertEquals(homePath, webPage.toString());
     }
 
     @Test
