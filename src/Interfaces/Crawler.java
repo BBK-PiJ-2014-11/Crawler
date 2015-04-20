@@ -18,7 +18,7 @@ public interface Crawler {
      * @param url the web page to be scraped for links
      * @param file the name of the file for stored links
      */
-    void crawl(URL url, String file) throws MalformedURLException;
+    void crawl(URL url, String file) throws IOException;
 
     /**
      * Creates a list of links scraped from a web-page

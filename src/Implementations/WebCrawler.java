@@ -20,19 +20,18 @@ public class WebCrawler implements Crawler {
     private int priorityNo;
     private URL currentPage;
 
-    public WebCrawler() throws MalformedURLException {
+    public WebCrawler() {
         reader = new HTMLRead();
         filename = "";
         database = new File(filename);
         maxBreath = 11; //TEMP VALUE
-        maxDepth = 11; //TEMP VALUEe
+        maxDepth = 11; //TEMP VALUE
         priorityNo = 0;
-        currentPage = new URL ("http://ehshan.com"); //TEMP VALUE
     }
 
     @Override
-    public void crawl(URL url, String file) throws MalformedURLException {
-        currentPage = url;
+    public void crawl(URL url, String file) throws IOException {
+        currentPage =  new URL ("http://tempUrl.com");
     }
 
     @Override
@@ -65,7 +64,15 @@ public class WebCrawler implements Crawler {
 
     @Override
     public String getHomePath(String path) {
-        return null;
+        String home = "";
+        if (path.contains("http")){
+            String[] parts = path.split("\\.");
+            home = parts[0];
+            String[] parts2 = parts[1].split("/");
+            home += "."+parts2[0]+"/";
+            System.out.println("homepage = "+home);
+        }
+        return home;
     }
 
     @Override
