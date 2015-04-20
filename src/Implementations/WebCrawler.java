@@ -38,12 +38,22 @@ public class WebCrawler implements Crawler {
         List urlList = new LinkedList<>();
         String url;
         while ((is.read() != -1)) {
-            if(reader.readUntil(is,'<','>')){
+            if(reader.readUntil(is,'<', (char) -1)){
                 if (checkString(is, "ahref")) {
                     if (reader.readUntil(is, '=', '>')) {
-                        url = reader.readString(is,'"','>');
-                        url += reader.readString(is, '"','>');
-                        urlList.add(url);
+                        if ((reader.skipSpace(is, '"') == Character.MIN_VALUE) ) {
+                            String temp = reader.readString(is,'"','>');
+                            url = temp.substring(0, temp.length() - 1);
+                        }else{
+                            url = reader.readString(is,'>', (char) -1);
+                        }
+                        //remove link referring to same page
+                        System.out.println(url);
+                        if(url.equals("#")){
+                            System.out.println("Link same page");
+                        }else{
+                            urlList.add(url);
+                        }
                     }
                 }
             }
