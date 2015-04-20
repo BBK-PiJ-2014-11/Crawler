@@ -37,6 +37,7 @@ public class WebCrawler implements Crawler {
 
     @Override
     public List<URL> getLinks(InputStream is) throws IOException {
+        currentPage =  new URL ("http://tempUrl.com"); //TEMP VALUE FOR TESTING
         List urlList = new LinkedList<>();
         String url;
         while ((is.read() != -1)) {
@@ -44,12 +45,13 @@ public class WebCrawler implements Crawler {
                 if (checkString(is, "ahref")) {
                     if (reader.readUntil(is, '=', (char) -1)) {
                         if ((reader.skipSpace(is, '"') == Character.MIN_VALUE) ) {
-                            String temp = reader.readString(is,'"',(char) -1);
-                            url = temp.substring(0, temp.length() - 1);
+                            url = getHomePage(is); // gets the domain (if any)
+                            String temp = reader.readString(is,'"',(char) -1); //remove trailing "
+                            url += temp.substring(0, temp.length() - 1); //adds rest of the address to domain
                         }else{
                             url = reader.readString(is, '>', (char) -1);
                         }
-                        System.out.println(url);
+                        System.out.println("Found link = "+url);
 //                        if (!(getHomePage(url).equals(""))){
 //                            currentHomePage = getHomePage(url);
 //                        }
