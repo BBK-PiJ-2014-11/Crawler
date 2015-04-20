@@ -29,12 +29,13 @@ public interface Crawler {
     List<URL> getLinks (InputStream is) throws IOException;
 
     /**
-     * Establishes the homepath of the current web-page
+     * Establishes the homepage of the current web-page
      *
-     * @param path the path of the link being analysed
-     * @return the the home path of the initial page
+     * @param is the input stream to be read (a link)
+     * @return the the home page of the current page if path absolute, empty string if
+     * link is relative
      */
-    String getHomePath (String path);
+    String getHomePage (InputStream is);
 
     /**
      * Creates an absolute path for link if its path is relative to home

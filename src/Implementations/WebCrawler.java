@@ -50,9 +50,9 @@ public class WebCrawler implements Crawler {
                             url = reader.readString(is, '>', (char) -1);
                         }
                         System.out.println(url);
-                        if (!(getHomePath(url).equals(""))){
-                            currentHomePage = getHomePath(url);
-                        }
+//                        if (!(getHomePage(url).equals(""))){
+//                            currentHomePage = getHomePage(url);
+//                        }
                         //remove link referring to same page
                         if(url.equals("#") || url.equals(currentPage.toString())){
                             System.out.println("Link same page");
@@ -67,15 +67,18 @@ public class WebCrawler implements Crawler {
     }
 
     @Override
-    public String getHomePath(String path) {
+    public String getHomePage(InputStream is) {
         String home = "";
-        if (path.contains("http")){
-            String[] parts = path.split("//");
-            home = parts[0];
-            String[] parts2 = parts[1].split("/");
-            home += "/"+parts2[0]+"/";
-            System.out.println("homepage = "+home);
+        if (checkString(is, "http")) {
+            home = "http";
+            int count = 0;
+            //looking for the first three /
+            while(count <3){
+                home+= reader.readString(is,'/', (char) -1);
+                count++;
+            }
         }
+        System.out.println("homepage = "+home);
         return home;
     }
 
