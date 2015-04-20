@@ -18,19 +18,21 @@ public class WebCrawler implements Crawler {
     private int maxBreath;
     private int maxDepth;
     private int priorityNo;
+    private URL currentPage;
 
-    public WebCrawler(){
+    public WebCrawler() throws MalformedURLException {
         reader = new HTMLRead();
         filename = "";
         database = new File(filename);
-        maxBreath = 11; //temp value
-        maxDepth = 11; // temp value
+        maxBreath = 11; //TEMP VALUE
+        maxDepth = 11; //TEMP VALUEe
         priorityNo = 0;
+        currentPage = new URL ("http://ehshan.com"); //TEMP VALUE
     }
 
     @Override
     public void crawl(URL url, String file) throws MalformedURLException {
-
+        currentPage = url;
     }
 
     @Override
@@ -40,16 +42,16 @@ public class WebCrawler implements Crawler {
         while ((is.read() != -1)) {
             if(reader.readUntil(is,'<', (char) -1)){
                 if (checkString(is, "ahref")) {
-                    if (reader.readUntil(is, '=', '>')) {
+                    if (reader.readUntil(is, '=', (char) -1)) {
                         if ((reader.skipSpace(is, '"') == Character.MIN_VALUE) ) {
-                            String temp = reader.readString(is,'"','>');
+                            String temp = reader.readString(is,'"',(char) -1);
                             url = temp.substring(0, temp.length() - 1);
                         }else{
-                            url = reader.readString(is,'>', (char) -1);
+                            url = reader.readString(is, '>', (char) -1);
                         }
-                        //remove link referring to same page
                         System.out.println(url);
-                        if(url.equals("#")){
+                        //remove link referring to same page
+                        if(url.equals("#") || url.equals(currentPage.toString())){
                             System.out.println("Link same page");
                         }else{
                             urlList.add(url);
