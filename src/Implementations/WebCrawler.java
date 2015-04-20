@@ -70,10 +70,10 @@ public class WebCrawler implements Crawler {
     public String getHomePath(String path) {
         String home = "";
         if (path.contains("http")){
-            String[] parts = path.split("\\.");
+            String[] parts = path.split("//");
             home = parts[0];
             String[] parts2 = parts[1].split("/");
-            home += "."+parts2[0]+"/";
+            home += "/"+parts2[0]+"/";
             System.out.println("homepage = "+home);
         }
         return home;
