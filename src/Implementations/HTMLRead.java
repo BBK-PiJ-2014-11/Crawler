@@ -37,14 +37,14 @@ public class HTMLRead implements Reader {
     /**
      * {@inheritDoc}
      *
-     * N.B. characters will be case sensitive
+     * N.B. characters will NOT be case sensitive
      */
     @Override
     public char skipSpace(InputStream is, char ch) {
         int x;
         try {
             while ((x = is.read()) != -1) {
-                if ((char) x == ch){
+                if (Character.toLowerCase((char) x) == Character.toLowerCase(ch)){
                     return Character.MIN_VALUE;
                 }else if (!Character.isWhitespace(x)){
                     return (char) x;
