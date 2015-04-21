@@ -21,23 +21,23 @@ public class WebCrawler implements Crawler {
     private URL currentPage;
     private String currentHome; // to store the home page of last visited absolute link
 
-    public WebCrawler() {
+    public WebCrawler() throws MalformedURLException {
         reader = new HTMLRead();
         filename = "";
         database = new File(filename);
         maxBreath = 11; //TEMP VALUE
         maxDepth = 11; //TEMP VALUE
         priorityNo = 0;
+        currentPage =  new URL ("http://ehshan.com/"); //INITIAL VALUE TO PREVENT NULL POINTER EXCEPTION
     }
 
     @Override
     public void crawl(URL url, String file) throws IOException {
-        currentPage =  new URL ("http://tempUrl.com");
+        currentPage =  url;
     }
 
     @Override
     public List<URL> getLinks(InputStream is) throws IOException {
-        currentPage =  new URL ("http://tempUrl.com"); //TEMP VALUE FOR TESTING
         List urlList = new LinkedList<>();
         String url;
         while ((is.read() != -1)) {
@@ -75,7 +75,13 @@ public class WebCrawler implements Crawler {
             int count = 0;
             //looking for the first three /
             while(count <3){
-                currentHome+= reader.readString(is,'/', (char) -1);
+                String tempHome = reader.readString(is,'/', '"');
+                //will only return links with a trailing /
+                if(tempHome !=null){
+                    currentHome += tempHome;
+                }else{
+                    currentHome = "";
+                }
                 count++;
             }
         }
