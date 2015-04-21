@@ -199,6 +199,19 @@ public class WebCrawlerTest {
     }
 
     /**
+     * Test to check whether the homepage of a website can be returned
+     *
+     * Test should return the homepage of the site being visited
+     */
+    @Test
+    public void testGetHomePageHttp() throws IOException {
+        InputStream is = new URL ("http://www.bbc.co.uk/sport/football/teams/arsenal").openStream();
+        String mockHome = crawler.getHomePage(is);
+
+        assertEquals(mockHome, "http://www.bbc.co.uk/");
+    }
+
+    /**
      * Test on  a relative link
      *
      * Test should return an empty String
