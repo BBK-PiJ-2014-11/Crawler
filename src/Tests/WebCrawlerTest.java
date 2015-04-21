@@ -34,9 +34,9 @@ public class WebCrawlerTest {
         crawler = new WebCrawler();
         linksPage = new URL("file:TestData/linksPage.html");
         webPage = new URL ("http://ehshan.com/");
-        secondPage = new URL ("http://ehshan.com/portfolio");
-        thirdPage = new URL ("http://ehshan.com/contact");
-        fourthPage = new URL ("http://ehshan.com/gallery");
+        secondPage = new URL ("http://ehshan.com/portfolio/");
+        thirdPage = new URL ("http://ehshan.com/contact/");
+        fourthPage = new URL ("http://ehshan.com/gallery/");
         database = new File("filename");
     }
 
@@ -210,6 +210,32 @@ public class WebCrawlerTest {
         String mockHome = crawler.getHomePage(is);
 
         assertEquals(mockHome, "");
+    }
+
+    /**
+     * Test to check if large web-page can be successfully scraped for links
+     *
+     * Test should return a list contain all links found, as Strings
+     */
+    @Test
+    public void testGetLinksLargeSite() throws IOException {
+        InputStream is = new URL ("http://bbc.co.uk/").openStream();
+        List urlList = crawler.getLinks(is);
+
+        //links to check for
+        String news = "http://www.bbc.co.uk/news/";
+        String sport = "http://www.bbc.co.uk/sport/";
+        String iplayer = "http://www.bbc.co.uk/iplayer/";
+        String weather = "http://www.bbc.co.uk/weather/";
+        String tv = "http://www.bbc.co.uk/tv/";
+        String radio = "http://www.bbc.co.uk/radio/";
+
+        assertTrue(linkFound(urlList, news));
+        assertTrue(linkFound(urlList, sport));
+        assertTrue(linkFound(urlList, iplayer));
+        assertTrue(linkFound(urlList, weather));
+        assertTrue(linkFound(urlList, tv));
+        assertTrue(linkFound(urlList, radio));
     }
 
     @Test
