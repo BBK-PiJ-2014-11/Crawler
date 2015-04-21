@@ -195,7 +195,7 @@ public class WebCrawlerTest {
         InputStream is = new ByteArrayInputStream(mockPage.getBytes(StandardCharsets.UTF_8));
         String mockHome = crawler.getHomePage(is);
 
-        assertEquals(mockHome, "http://www.bbc.co.uk/");
+        assertEquals("http://www.bbc.co.uk/", mockHome);
     }
 
     /**
@@ -208,7 +208,7 @@ public class WebCrawlerTest {
         InputStream is = new URL ("http://www.bbc.co.uk/sport/football/teams/arsenal").openStream();
         String mockHome = crawler.getHomePage(is);
 
-        assertEquals(mockHome, "http://www.bbc.co.uk/");
+        assertEquals("http://www.bbc.co.uk/",mockHome);
     }
 
     /**
@@ -222,7 +222,7 @@ public class WebCrawlerTest {
         InputStream is = new ByteArrayInputStream(mockPage.getBytes(StandardCharsets.UTF_8));
         String mockHome = crawler.getHomePage(is);
 
-        assertEquals(mockHome, null);
+        assertEquals(null, mockHome);
     }
 
     /**
@@ -232,7 +232,7 @@ public class WebCrawlerTest {
      */
     @Test
     public void testGetLinksLargeSite() throws IOException {
-        InputStream is = new URL ("http://bbc.co.uk/").openStream();
+        InputStream is = new URL ("http://www.bbk.ac.uk/front-page").openStream();
         List urlList = crawler.getLinks(is);
 
         //links to check for
@@ -276,6 +276,23 @@ public class WebCrawlerTest {
         assertTrue(linkFound(urlList, photo4));
         assertTrue(linkFound(urlList, photo5));
         assertTrue(linkFound(urlList, photo6));
+    }
+
+    /**
+     * Test to check if the base link can be found and returned
+     *
+     * Test should return a list contain all links found (of which one should
+     * be the base)
+     */
+    @Test
+    public void testGetBase() throws IOException {
+        InputStream is = new URL ("http://www.bbk.ac.uk/front-page/").openStream();
+        List urlList = crawler.getLinks(is);
+
+        //the base link
+        String baseLink = "http://www.bbk.ac.uk/front-page/";
+
+        assertTrue(linkFound(urlList, baseLink));
     }
 
     @Test
