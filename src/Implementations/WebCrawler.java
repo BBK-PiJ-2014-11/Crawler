@@ -19,7 +19,7 @@ public class WebCrawler implements Crawler {
     private int maxDepth;
     private int priorityNo;
     private URL currentPage;
-    private String currentHomePage;
+    private String currentHome; // to store the home page of last visited absolute link
 
     public WebCrawler() {
         reader = new HTMLRead();
@@ -45,9 +45,9 @@ public class WebCrawler implements Crawler {
                 if (checkString(is, "ahref")) {
                     if (reader.readUntil(is, '=', (char) -1)) {
                         if ((reader.skipSpace(is, '"') == Character.MIN_VALUE) ) {
-                            url = getHomePage(is); // gets the domain (if any)
+                            currentHome = getHomePage(is); // gets the domain (if any)
                             String temp = reader.readString(is,'"',(char) -1); //remove trailing "
-                            url += temp.substring(0, temp.length() - 1); //adds rest of the address to domain
+                            url = currentHome+temp.substring(0, temp.length() - 1); //adds rest of the address to domain
                         }else{
                             url = reader.readString(is, '>', (char) -1);
                         }
@@ -70,18 +70,17 @@ public class WebCrawler implements Crawler {
 
     @Override
     public String getHomePage(InputStream is) {
-        String home = "";
         if (checkString(is, "http")) {
-            home = "http";
+            currentHome = "http";
             int count = 0;
             //looking for the first three /
             while(count <3){
-                home+= reader.readString(is,'/', (char) -1);
+                currentHome+= reader.readString(is,'/', (char) -1);
                 count++;
             }
         }
-        System.out.println("homepage = "+home);
-        return home;
+        System.out.println("homepage = "+currentHome);
+        return currentHome;
     }
 
     @Override
