@@ -209,7 +209,7 @@ public class WebCrawlerTest {
         InputStream is = new ByteArrayInputStream(mockPage.getBytes(StandardCharsets.UTF_8));
         String mockHome = crawler.getHomePage(is);
 
-        assertEquals(mockHome, "");
+        assertEquals(mockHome, null);
     }
 
     /**
@@ -236,6 +236,33 @@ public class WebCrawlerTest {
         assertTrue(linkFound(urlList, weather));
         assertTrue(linkFound(urlList, tv));
         assertTrue(linkFound(urlList, radio));
+    }
+
+    /**
+     * Test to check if web-page with images links can be scraped
+     *
+     * Test should return a list contain all links found (mostly images),
+     * as Strings
+     */
+    @Test
+    public void testGetImages() throws IOException {
+        InputStream is = new URL ("http://www.ehshan.com/gallery").openStream();
+        List urlList = crawler.getLinks(is);
+
+        //links to check for
+        String photo1 = "http://ehshan.com/images/full/Berlin1.jpg";
+        String photo2 = "http://ehshan.com/images/full/Berlin2.jpg";
+        String photo3 = "http://ehshan.com/images/full/Berlin3.jpg";
+        String photo4 = "http://ehshan.com/images/full/Berlin4.jpg";
+        String photo5 = "http://ehshan.com/images/full/Berlin5.jpg";
+        String photo6 = "http://ehshan.com/images/full/Berlin6.jpg";
+
+        assertTrue(linkFound(urlList, photo1));
+        assertTrue(linkFound(urlList, photo2));
+        assertTrue(linkFound(urlList, photo3));
+        assertTrue(linkFound(urlList, photo4));
+        assertTrue(linkFound(urlList, photo5));
+        assertTrue(linkFound(urlList, photo6));
     }
 
     @Test
