@@ -86,7 +86,7 @@ public class WebCrawler implements Crawler {
                 //will only return links with a trailing /
                 if(tempHome !=null){
                     currentHome += tempHome;
-                }else{
+                }else if (base != null){
                     currentHome = base;
                 }
                 count++;
@@ -117,20 +117,20 @@ public class WebCrawler implements Crawler {
     }
 
     /**
-     * Checks if a html tag starting with with 'a' or 'b' contains a
+     * Checks if a html tag starting with 'a' or 'b' contains a
      * link attribute
      *
      * @param str the String within the tag to be analysed
-     * @return the String  "a href", "base" if either found as sub-String
+     * @return the Strings  "a href" or "base" if either found as sub-String
      * or an empty String if not
      */
     private String checkTag (String str) {
         str = str.toLowerCase();
-        if(str.substring(0, 1).equalsIgnoreCase("a")){
+        if(str.substring(0, 1).equals("a")){
             if (str.contains("href")){
                 return "a href";
             }
-        } else if (str.substring(0, 4).equalsIgnoreCase("base")){
+        } else if (str.substring(0, 4).equals("base")){
             return "base";
         }
         return "";
