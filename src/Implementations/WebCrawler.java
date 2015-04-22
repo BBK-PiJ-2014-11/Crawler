@@ -68,7 +68,7 @@ public class WebCrawler implements Crawler {
                     element= checkTag(c+reader.readString(is, '=', '>'));
                     if (element.equals("a href")) {
                         if ((reader.skipSpace(is, '"') == Character.MIN_VALUE)) {
-                            currentHome = getHomePage(is); // gets the domain (if any)
+                            currentHome = getDomain(is); // gets the domain (if any)
                             String temp = reader.readString(is, '"', (char) -1); //remove trailing "
                             url = currentHome + temp.substring(0, temp.length() - 1); //adds rest of the address to domain
                         } else {
@@ -94,7 +94,7 @@ public class WebCrawler implements Crawler {
      * {@inheritDoc}
      */
     @Override
-    public String getHomePage(InputStream is) {
+    public String getDomain (InputStream is) {
         if (checkString(is, "http")) {
             currentHome = "http";
             int count = 0;

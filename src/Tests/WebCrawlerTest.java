@@ -175,11 +175,11 @@ public class WebCrawlerTest {
      * Test should return the homepage of the site being visited
      */
     @Test
-    public void testGetHomePage()  {
+    public void testGetDomain()  {
         //page will be -> http://ehshan.com/contact
         String contactPage = thirdPage.toString();
         InputStream is = new ByteArrayInputStream(contactPage.getBytes(StandardCharsets.UTF_8));
-        String homePage = crawler.getHomePage(is);
+        String homePage = crawler.getDomain(is);
 
         //expect result will be -> http://ehshan.com/
         assertEquals(homePage, webPage.toString());
@@ -192,10 +192,10 @@ public class WebCrawlerTest {
      * Test should return the homepage of the site being visited
      */
     @Test
-    public void testGetHomePageMockPage()  {
+    public void testGetDomainMockPage()  {
         String mockPage = "http://www.bbc.co.uk/sport/football/arsenal/fixtures";
         InputStream is = new ByteArrayInputStream(mockPage.getBytes(StandardCharsets.UTF_8));
-        String mockHome = crawler.getHomePage(is);
+        String mockHome = crawler.getDomain(is);
 
         assertEquals("http://www.bbc.co.uk/", mockHome);
     }
@@ -206,9 +206,9 @@ public class WebCrawlerTest {
      * Test should return the homepage of the site being visited
      */
     @Test
-    public void testGetHomePageHttp() throws IOException {
+    public void testGetDomainHttp() throws IOException {
         InputStream is = new URL ("http://www.bbc.co.uk/sport/football/teams/arsenal").openStream();
-        String mockHome = crawler.getHomePage(is);
+        String mockHome = crawler.getDomain(is);
 
         assertEquals("http://www.bbc.co.uk/",mockHome);
     }
@@ -219,10 +219,10 @@ public class WebCrawlerTest {
      * Test should return an empty String
      */
     @Test
-    public void testGetHomePageRelativeLink()  {
+    public void testGetDomainRelativeLink()  {
         String mockPage = "/gallery";
         InputStream is = new ByteArrayInputStream(mockPage.getBytes(StandardCharsets.UTF_8));
-        String mockHome = crawler.getHomePage(is);
+        String mockHome = crawler.getDomain(is);
 
         assertEquals(null, mockHome);
     }

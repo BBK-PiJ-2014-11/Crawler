@@ -31,13 +31,13 @@ public interface Crawler {
     List<URL> getLinks (InputStream is) throws IOException;
 
     /**
-     * Establishes the homepage of the current web-page
+     * Establishes the Domain of the current web-page
      *
      * @param is the input stream to be read (a link)
      * @return the the home page of the current page if path absolute, empty string if
      * link is relative
      */
-    String getHomePage (InputStream is);
+    String getDomain (InputStream is);
 
     /**
      * Checks if an input contains a specific sequence of characters
