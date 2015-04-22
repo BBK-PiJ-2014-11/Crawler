@@ -78,7 +78,10 @@ public class WebCrawler implements Crawler {
                         //remove link referring to same page
                         if (url.equals("#") || url.equals(currentPage.toString())) {
                             System.out.println("Link same page");
-                        } else {
+                        //remove Strings contain spanning >1 tags
+                        } else if (url.contains("<") || url.contains("</")) {
+                            System.out.println("non link found");
+                        }else{
                             urlList.add(url);
                         }
                     }else if(element.equals("base")){
