@@ -20,6 +20,7 @@ public class WebCrawler implements Crawler {
     private int priorityNo;
     private URL currentPage;
     private String currentHome; // to store the home page of last visited absolute link
+    private String base; // picks up any base tag
 
     public WebCrawler() throws MalformedURLException {
         reader = new HTMLRead();
@@ -28,7 +29,7 @@ public class WebCrawler implements Crawler {
         maxBreath = 11; //TEMP VALUE
         maxDepth = 11; //TEMP VALUE
         priorityNo = 0;
-        currentPage =  new URL ("http://ehshan.com/"); //INITIAL VALUE TO PREVENT NULL POINTER EXCEPTION
+        currentPage =  new URL ("http://xyz.com/"); //INITIAL VALUE TO PREVENT NULL POINTER EXCEPTION
     }
 
     @Override
@@ -40,6 +41,7 @@ public class WebCrawler implements Crawler {
     public List<URL> getLinks(InputStream is) throws IOException {
         List urlList = new LinkedList<>();
         String url;
+        String tag;
         while ((is.read() != -1)) {
             if(reader.readUntil(is,'<', (char) -1)){
                 if (checkString(is, "ahref")) {
@@ -80,7 +82,7 @@ public class WebCrawler implements Crawler {
                 if(tempHome !=null){
                     currentHome += tempHome;
                 }else{
-                    currentHome = "";
+                    currentHome = base;
                 }
                 count++;
             }
@@ -107,5 +109,24 @@ public class WebCrawler implements Crawler {
     @Override
     public boolean search(String url) {
         return true;
+    }
+    /**
+     * Checks if a html tag starting with with 'a' or 'b' contains a
+     * link attribute
+     *
+     * @param str the String within the tag to be analysed
+     * @return the String  "a href", "base" if either found as sub-String
+     * or an empty String if not
+     */
+    private String checkTag (String str) {
+        str = str.toLowerCase();
+        if(str.substring(0, 1).equalsIgnoreCase("a")){
+            if (str.contains("href")){
+                return "a href";
+            }
+        } else if (str.substring(0, 4).equalsIgnoreCase("base")){
+            return "base";
+        }
+        return "";
     }
 }
