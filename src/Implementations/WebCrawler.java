@@ -41,26 +41,25 @@ public class WebCrawler implements Crawler {
     public List<URL> getLinks(InputStream is) throws IOException {
         List urlList = new LinkedList<>();
         String url;
-        String tag;
+        String element;
         while ((is.read() != -1)) {
             if(reader.readUntil(is,'<', (char) -1)){
-                if (checkString(is, "ahref")) {
-                    if (reader.readUntil(is, '=', (char) -1)) {
-                        if ((reader.skipSpace(is, '"') == Character.MIN_VALUE) ) {
+                char c = reader.skipSpace(is, '/');
+                if (c == 'a' || c == 'b'){
+                    element= checkTag(c+reader.readString(is, '=', '>'));
+                    if (element.equals("a href")) {
+                        if ((reader.skipSpace(is, '"') == Character.MIN_VALUE)) {
                             currentHome = getHomePage(is); // gets the domain (if any)
-                            String temp = reader.readString(is,'"',(char) -1); //remove trailing "
-                            url = currentHome+temp.substring(0, temp.length() - 1); //adds rest of the address to domain
-                        }else{
+                            String temp = reader.readString(is, '"', (char) -1); //remove trailing "
+                            url = currentHome + temp.substring(0, temp.length() - 1); //adds rest of the address to domain
+                        } else {
                             url = reader.readString(is, '>', (char) -1);
                         }
-                        System.out.println("Found link = "+url);
-//                        if (!(getHomePage(url).equals(""))){
-//                            currentHomePage = getHomePage(url);
-//                        }
+                        System.out.println("Found link = " + url);
                         //remove link referring to same page
-                        if(url.equals("#") || url.equals(currentPage.toString())){
+                        if (url.equals("#") || url.equals(currentPage.toString())) {
                             System.out.println("Link same page");
-                        }else{
+                        } else {
                             urlList.add(url);
                         }
                     }
