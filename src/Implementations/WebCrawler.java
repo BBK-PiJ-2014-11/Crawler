@@ -62,6 +62,8 @@ public class WebCrawler implements Crawler {
                         } else {
                             urlList.add(url);
                         }
+                    }else if(element.equals("base")){
+                        base = getBase(is);
                     }
                 }
             }
@@ -136,13 +138,13 @@ public class WebCrawler implements Crawler {
      * @param is the input stream to be read
      * @return the base link found as a String
      */
-    public String getBase(InputStream is) {
+    private String getBase(InputStream is) {
         String tempBase = "";
         if(reader.skipSpace(is,'"')== Character.MIN_VALUE){
             String temp = reader.readString(is, '"', (char) -1);
             tempBase = tempBase + (temp.substring(0, temp.length() - 1))+"/";
         }
-        System.out.println("homepage = "+tempBase);
+        System.out.println("base = "+tempBase);
         return tempBase;
     }
 }
