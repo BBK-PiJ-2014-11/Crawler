@@ -20,7 +20,8 @@ public class WebCrawler implements Crawler {
     private int priorityNo;
     private URL currentPage;
     private String currentHome; // to store the home page of last visited absolute link
-    private String base; // picks up any base tag
+    private String base; // picks up any base link found
+    private List scrapedLinks;
 
     public WebCrawler() throws MalformedURLException {
         reader = new HTMLRead();
@@ -30,11 +31,14 @@ public class WebCrawler implements Crawler {
         maxDepth = 11; //TEMP VALUE
         priorityNo = 0;
         currentPage =  new URL ("http://xyz.com/"); //INITIAL VALUE TO PREVENT NULL POINTER EXCEPTION
+        scrapedLinks = new LinkedList<>();
     }
 
     @Override
     public void crawl(URL url, String file) throws IOException {
         currentPage =  url;
+        InputStream is = url.openStream();
+        scrapedLinks = getLinks(is);
     }
 
     @Override
