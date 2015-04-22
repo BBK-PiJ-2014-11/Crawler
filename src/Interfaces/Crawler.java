@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * A class to scrape web-pages for links
+ *
+ * @author Ehshan Veerabangsa
  */
 public interface Crawler {
 

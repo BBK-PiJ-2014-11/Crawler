@@ -9,7 +9,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * {@inheritDoc}
+ *
+ * @author Ehshan Veerabangsa
+ */
 public class WebCrawler implements Crawler {
 
     private HTMLRead reader;
@@ -23,6 +27,11 @@ public class WebCrawler implements Crawler {
     private String base; // picks up any base link found
     private List scrapedLinks;
 
+    /**
+     * WebCrawler class constructor
+     *
+     * Creates a new instance of the web crawler
+     */
     public WebCrawler() throws MalformedURLException {
         reader = new HTMLRead();
         filename = "";
@@ -34,6 +43,9 @@ public class WebCrawler implements Crawler {
         scrapedLinks = new LinkedList<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void crawl(URL url, String file) throws IOException {
         currentPage =  url;
@@ -41,6 +53,9 @@ public class WebCrawler implements Crawler {
         scrapedLinks = getLinks(is);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<URL> getLinks(InputStream is) throws IOException {
         List urlList = new LinkedList<>();
@@ -75,6 +90,9 @@ public class WebCrawler implements Crawler {
         return urlList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getHomePage(InputStream is) {
         if (checkString(is, "http")) {
@@ -96,11 +114,17 @@ public class WebCrawler implements Crawler {
         return currentHome;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String setAbsolutePath(String url, String link, String homePath) {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boolean checkString(InputStream is,String checkStr) {
         for (char ch: checkStr.toCharArray()) {
@@ -111,6 +135,9 @@ public class WebCrawler implements Crawler {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean search(String url) {
         return true;

@@ -4,7 +4,11 @@ import Interfaces.Reader;
 
 import java.io.IOException;
 import java.io.InputStream;
-
+/**
+ * {@inheritDoc}
+ *
+ * @author Ehshan Veerabangsa
+ */
 public class HTMLRead implements Reader {
 
     /**
@@ -15,6 +19,7 @@ public class HTMLRead implements Reader {
     public HTMLRead(){
 
     }
+
     /**
      * {@inheritDoc}
      */
@@ -34,6 +39,7 @@ public class HTMLRead implements Reader {
         }
         return false;
     }
+
     /**
      * {@inheritDoc}
      *
@@ -55,6 +61,7 @@ public class HTMLRead implements Reader {
         }
         return Character.MIN_VALUE;
     }
+
     /**
      * {@inheritDoc}
      */

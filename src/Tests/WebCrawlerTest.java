@@ -14,7 +14,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.junit.Assert.*;
-
+/**
+ * @author Ehshan Veerabangsa
+ */
 public class WebCrawlerTest {
 
     private WebCrawler crawler;
@@ -232,7 +234,7 @@ public class WebCrawlerTest {
      */
     @Test
     public void testGetLinksLargeSite() throws IOException {
-        InputStream is = new URL ("http://www.bbk.ac.uk/front-page").openStream();
+        InputStream is = new URL ("http://bbc.co.uk/").openStream();
         List urlList = crawler.getLinks(is);
 
         //links to check for

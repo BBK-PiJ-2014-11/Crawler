@@ -4,6 +4,8 @@ import java.io.InputStream;
 
 /**
  * A class to parse data form input streams, and and constructing strings from information read.
+ *
+ * @author Ehshan Veerabangsa
  */
 public interface Reader {
 

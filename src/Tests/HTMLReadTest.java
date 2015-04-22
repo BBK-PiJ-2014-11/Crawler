@@ -8,7 +8,9 @@ import org.junit.Test;
 import java.io.*;
 
 import static org.junit.Assert.*;
-
+/**
+ * @author Ehshan Veerabangsa
+ */
 public class HTMLReadTest {
 
     private HTMLRead reader;
