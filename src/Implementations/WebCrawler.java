@@ -118,14 +118,6 @@ public class WebCrawler implements Crawler {
      * {@inheritDoc}
      */
     @Override
-    public String setAbsolutePath(String url, String link, String homePath) {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Boolean checkString(InputStream is,String checkStr) {
         for (char ch: checkStr.toCharArray()) {
             if(reader.skipSpace(is,ch)!= Character.MIN_VALUE){

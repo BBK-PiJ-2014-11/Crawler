@@ -40,16 +40,6 @@ public interface Crawler {
     String getHomePage (InputStream is);
 
     /**
-     * Creates an absolute path for link if its path is relative to home
-     *
-     * @param url the current url being visited
-     * @param link the path of the link being analysed
-     * @param homePath the homePath of the site
-     * @return the absolute path of the analysed link
-     */
-    String setAbsolutePath (String url, String link, String homePath);
-
-    /**
      * Checks if an input contains a specific sequence of characters
      *
      * @param is the input stream to be read
