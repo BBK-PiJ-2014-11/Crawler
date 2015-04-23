@@ -26,15 +26,14 @@ public class CrawlerDBTest {
 
     @Before
     public void setUp() throws ClassNotFoundException, SQLException {
-        database = new CrawlerDB(connection);
-
         homepage = "http://ehshan.com/";
         portfolio = "http://ehshan.com/portfolio/";
         contact = "http://ehshan.com/contact/";
 
         Class.forName(driver);
         connection = DriverManager.getConnection(db_url);
-        connection.createStatement().execute("create table " + tableName + "(priority int, url varchar(2000))");
+        //connection.createStatement().execute("create table " + tableName + "(priority int, url varchar(2000))");
+        database = new CrawlerDB(connection);
     }
 
     @After
@@ -54,7 +53,7 @@ public class CrawlerDBTest {
         database.writeString(3, contact);
 
         //check the number of new records
-        result = statement.executeQuery("SELECT COUNT(*) FROM newTable");
+        result = statement.executeQuery("SELECT COUNT(*) FROM resultsTable");
         int rows = result.getInt("rows");
 
         assertEquals(3, rows);
