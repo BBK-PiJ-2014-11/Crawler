@@ -6,10 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +18,7 @@ public class CrawlerDBTest {
 
     public static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     public static String db_url = "jdbc:derby:memory:testdb;create=true";
-    public static String tableName = "testTable";
+    public static String tableName = "newTable";
 
     private String homepage;
     private String portfolio;
@@ -41,13 +38,26 @@ public class CrawlerDBTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() throws SQLException {
         connection.close();
     }
 
-    @Test
-    public void testWriteString() throws Exception {
 
+    @Test
+    public void testWriteString() throws SQLException  {
+        //results to be returned
+        ResultSet result;
+
+        //Strings to be written
+        database.writeString(1, homepage);
+        database.writeString(2, portfolio);
+        database.writeString(3, contact);
+
+        //check the number of new records
+        result = statement.executeQuery("SELECT COUNT(*) FROM newTable");
+        int rows = result.getInt("rows");
+
+        assertEquals(3, rows);
     }
 
     @Test
