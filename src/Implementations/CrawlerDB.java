@@ -2,16 +2,19 @@ package Implementations;
 
 import Interfaces.DB;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class CrawlerDB implements DB {
 
+    public static final String JDBC_URL = "jdbc:derby:memory:testdb;create=true";
+    private Statement statement;
+    private Connection connection = DriverManager.getConnection(JDBC_URL);
 
     public CrawlerDB(Connection connection) throws SQLException {
 
-        connection .createStatement().execute("create table " + "tempTable" + "(priority int, url varchar(2000))");
-        connection .createStatement().execute("create table " + "resultsTable" + "(priority int, url varchar(2000))");
+        this.connection = connection;
+        connection.createStatement().execute("create table " + "tempTable" + "(priority int, url varchar(2000))");
+        connection.createStatement().execute("create table " + "resultsTable" + "(priority int, url varchar(2000))");
     }
 
     @Override
