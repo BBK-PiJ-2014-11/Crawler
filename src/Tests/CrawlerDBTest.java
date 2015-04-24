@@ -9,7 +9,9 @@ import org.junit.Test;
 import java.sql.*;
 
 import static org.junit.Assert.*;
-
+/**
+ * @author Ehshan Veerabangsa
+ */
 public class CrawlerDBTest {
 
     private Connection connection;
@@ -24,6 +26,9 @@ public class CrawlerDBTest {
     private String portfolio;
     private String contact;
 
+    /**
+     * Testdb setup
+     */
     @Before
     public void setUp() throws ClassNotFoundException, SQLException, IllegalAccessException, InstantiationException {
         homepage = "http://ehshan.com/";
@@ -37,6 +42,9 @@ public class CrawlerDBTest {
         database = new CrawlerDB(connection);
     }
 
+    /**
+     * Shut down db
+     */
     @After
     public void tearDown() throws SQLException {
         DatabaseMetaData dbm = connection.getMetaData();
@@ -48,7 +56,12 @@ public class CrawlerDBTest {
 //        statement.close();
     }
 
-
+    /**
+     * Test to check whether table can be created data can be written
+     *
+     * Test should return the number of record added (by counting
+     * table rows)
+     */
     @Test
     public void testWriteString() throws SQLException  {
         //results to be returned
@@ -66,6 +79,11 @@ public class CrawlerDBTest {
         assertEquals(3, rows);
     }
 
+    /**
+     * Test to check a link can be found in db
+     *
+     * Test should return true
+     */
     @Test
     public void testCheckLinks() throws Exception {
         DB newDatabase = new CrawlerDB(connection);
