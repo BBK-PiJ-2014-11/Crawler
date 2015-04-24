@@ -5,6 +5,7 @@ import java.sql.SQLException;
 /**
  * A class to create a database to store all unique crawled links
  *
+ * @author Ehshan Veerabangsa
  */
 public interface DB {
 
