@@ -13,6 +13,8 @@ public class CrawlerDB implements DB {
     public CrawlerDB(Connection connection) throws SQLException {
 
         this.connection = connection;
+        statement.execute("drop table tempTable");
+        statement.execute("drop table resultsTable");
         connection.createStatement().execute("create table " + "tempTable" + "(priority int, url varchar(2000))");
         connection.createStatement().execute("create table " + "resultsTable" + "(priority int, url varchar(2000))");
     }
