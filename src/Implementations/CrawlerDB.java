@@ -13,15 +13,16 @@ public class CrawlerDB implements DB {
     public CrawlerDB(Connection connection) throws SQLException {
 
         this.connection = connection;
-        statement.execute("drop table tempTable");
-        statement.execute("drop table resultsTable");
-        connection.createStatement().execute("create table " + "tempTable" + "(priority int, url varchar(2000))");
-        connection.createStatement().execute("create table " + "resultsTable" + "(priority int, url varchar(2000))");
+        //statement.execute("drop table tempTable");
+        //statement.execute("drop table resultsTable");
+        connection.createStatement().execute("create table tempTable" + "(priority int, url varchar(2000) not null) ");
+        connection.createStatement().execute("create table resultsTable" + "(priority int, url varchar(2000) not null)");
     }
 
     @Override
-    public void writeString(int priority, String url) {
-
+    public void writeString(int priority, String url) throws SQLException {
+        statement = connection.createStatement();
+        statement.executeUpdate("insert into"+" tempTable"+ " values (" + priority + ", '" + url + "')");
     }
 
     @Override
