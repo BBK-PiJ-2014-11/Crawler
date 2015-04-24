@@ -68,6 +68,16 @@ public class CrawlerDBTest {
 
     @Test
     public void testCheckLinks() throws Exception {
+        DB newDatabase = new CrawlerDB(connection);
 
+        //Strings to be written
+        newDatabase.writeString(1, homepage);
+        newDatabase.writeString(2, portfolio);
+        newDatabase.writeString(3, contact);
+
+        //check that the links a present in table
+        assertTrue( newDatabase.checkLinks(homepage));
+        assertTrue( newDatabase.checkLinks(homepage));
+        assertTrue( newDatabase.checkLinks(homepage));
     }
 }
