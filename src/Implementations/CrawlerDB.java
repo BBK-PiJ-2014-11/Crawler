@@ -26,7 +26,10 @@ public class CrawlerDB implements DB {
     }
 
     @Override
-    public boolean checkLinks(String url) {
-        return false;
+    public boolean checkLinks(String url) throws SQLException {
+        ResultSet result;
+        statement = connection.createStatement();
+        result = statement.executeQuery("select * from tempTable where" + " url =' " + url + " ' ");
+        return result.next();
     }
 }
