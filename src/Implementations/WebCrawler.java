@@ -42,7 +42,7 @@ public class WebCrawler implements Crawler {
      */
     public WebCrawler() throws MalformedURLException, SQLException {
         reader = new HTMLRead();
-        maxBreath = 11; //TEMP VALUE
+        maxBreath = 111; //TEMP VALUE
         maxDepth = 11; //TEMP VALUE
         priorityNo = 0;
         currentPage =  new URL ("http://xyz.com/"); //INITIAL VALUE TO PREVENT NULL POINTER EXCEPTION
@@ -55,25 +55,27 @@ public class WebCrawler implements Crawler {
     @Override
     public void crawl(URL url) throws IOException, SQLException {
         //initial page
-        currentPage =  url;
-        priorityNo++;
+        while (priorityNo < maxBreath){
+            currentPage =  url;
+            priorityNo++;
 
-        //set up database
-        DB database = new CrawlerDB(connection, tempTable, resultsTable);
-        database.writeString(0, currentPage.toString(), tempTable);
+            //set up database
+            DB database = new CrawlerDB(connection, tempTable, resultsTable);
+            database.writeString(0, currentPage.toString(), tempTable);
 
-        //scrape links from first page
-        InputStream is = url.openStream();
-        scrapedLinks = getLinks(is);
-        is.close();
+            //scrape links from first page
+            InputStream is = url.openStream();
+            scrapedLinks = getLinks(is);
+            is.close();
 
-        //write results to temp table
-        if(!scrapedLinks.isEmpty()){
-            for(Object link : scrapedLinks){
-                String strLink = link.toString();
-                System.out.println(priorityNo+": "+strLink);
-                if(!database.checkLinks(strLink, tempTable)){
-                    database.writeString(priorityNo, strLink, tempTable);
+            //write results to temp table
+            if(!scrapedLinks.isEmpty()){
+                for(Object link : scrapedLinks){
+                    String strLink = link.toString();
+                    System.out.println(priorityNo+": "+strLink);
+                    if(!database.checkLinks(strLink, tempTable)){
+                        database.writeString(priorityNo, strLink, tempTable);
+                    }
                 }
             }
         }
