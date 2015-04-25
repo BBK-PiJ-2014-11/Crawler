@@ -54,10 +54,29 @@ public class WebCrawler implements Crawler {
      */
     @Override
     public void crawl(URL url) throws IOException, SQLException {
-
+        //initial page
         currentPage =  url;
+        priorityNo++;
+
+        //set up database
+        DB database = new CrawlerDB(connection, tempTable, resultsTable);
+        database.writeString(0, currentPage.toString(), tempTable);
+
+        //scrape links from first page
         InputStream is = url.openStream();
         scrapedLinks = getLinks(is);
+        is.close();
+
+        //write results to temp table
+        if(!scrapedLinks.isEmpty()){
+            for(Object link : scrapedLinks){
+                String strLink = link.toString();
+                System.out.println(priorityNo+": "+strLink);
+                if(!database.checkLinks(strLink, tempTable)){
+                    database.writeString(priorityNo, strLink, tempTable);
+                }
+            }
+        }
     }
 
     /**
