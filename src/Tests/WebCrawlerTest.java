@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -77,10 +77,26 @@ public class WebCrawlerTest {
 
     }
 
+    /**
+     * Test to check if crawl can successfully store urls to database
+     *
+     * Test should return table values
+     */
     @Test
     public void testCrawl() throws IOException, SQLException {
         URL url = new URL ("http://bbc.co.uk/");
         crawler.crawl(url);
+
+        //check setup connection
+        String dbName = "crawlerDB";
+        String db_url = "jdbc:derby:memory:"+dbName+"+;create=true";
+        Connection connection =  DriverManager.getConnection(db_url);
+
+        //test for records with priority of 0
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery("select count(*) from  tempTable"+ " where priority = "+ 0);
+        int record = result.getInt(0);
+        assertEquals(1, record );
     }
 
     /**
