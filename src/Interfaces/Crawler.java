@@ -19,9 +19,8 @@ public interface Crawler {
      * saving all URL links found within the page to a temporary database table
      *
      * @param url the web page to be scraped for links
-     * @param file the name of the file for stored links
      */
-    void crawl(URL url, String file) throws IOException, SQLException;
+    void crawl(URL url) throws IOException, SQLException;
 
     /**
      * Creates a list of links scraped from a web-page
