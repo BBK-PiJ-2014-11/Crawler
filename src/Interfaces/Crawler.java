@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public interface Crawler {
      * @param url the web page to be scraped for links
      * @param file the name of the file for stored links
      */
-    void crawl(URL url, String file) throws IOException;
+    void crawl(URL url, String file) throws IOException, SQLException;
 
     /**
      * Creates a list of links scraped from a web-page
@@ -28,7 +29,7 @@ public interface Crawler {
      * @param is the input stream to be read
      * @return the list of scraped urls
      */
-    List<URL> getLinks (InputStream is) throws IOException;
+    List<String> getLinks (InputStream is) throws IOException;
 
     /**
      * Establishes the Domain of the current web-page
