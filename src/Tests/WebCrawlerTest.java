@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -32,7 +33,7 @@ public class WebCrawlerTest {
      * Test crawler setup
      */
     @Before
-    public void setUp() throws  MalformedURLException {
+    public void setUp() throws MalformedURLException, SQLException {
         crawler = new WebCrawler();
         linksPage = new URL("file:TestData/linksPage.html");
         webPage = new URL ("http://ehshan.com/");
@@ -77,8 +78,9 @@ public class WebCrawlerTest {
     }
 
     @Test
-    public void testCrawl()  {
-
+    public void testCrawl() throws IOException, SQLException {
+        URL url = new URL ("http://bbc.co.uk/");
+        crawler.crawl(url);
     }
 
     /**
