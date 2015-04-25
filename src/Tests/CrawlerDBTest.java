@@ -20,7 +20,8 @@ public class CrawlerDBTest {
 
     public static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     public static String db_url = "jdbc:derby:memory:testdb;create=true";
-    public static String tableName = "tableName";
+    public static String tempTable = "tempTable";
+    public static String resultsTable = "resultsTable";
 
     private String homepage;
     private String portfolio;
@@ -38,8 +39,8 @@ public class CrawlerDBTest {
         Class.forName(driver).newInstance();
         connection = DriverManager.getConnection(db_url);
         System.out.println("connection created");
-        connection.createStatement().execute("create table " + tableName + "(priority int, url varchar(2000))");
-        database = new CrawlerDB(connection);
+        //connection.createStatement().execute("create table " + tempTable + "(priority int, url varchar(2000))");
+        database = new CrawlerDB(connection, tempTable, resultsTable);
     }
 
     /**
@@ -48,9 +49,9 @@ public class CrawlerDBTest {
     @After
     public void tearDown() throws SQLException {
         DatabaseMetaData dbm = connection.getMetaData();
-        ResultSet tables = dbm.getTables(null, null, tableName, null);
+        ResultSet tables = dbm.getTables(null, null, tempTable, null);
         if (tables.next()) {
-            statement.execute("drop table "+ tableName);
+            statement.execute("drop table "+ tempTable);
         }
         connection.close();
 //        statement.close();
@@ -68,12 +69,12 @@ public class CrawlerDBTest {
         ResultSet result;
 
         //Strings to be written
-        database.writeString(1, homepage);
-        database.writeString(2, portfolio);
-        database.writeString(3, contact);
+        database.writeString(1, homepage, tempTable);
+        database.writeString(2, portfolio, tempTable);
+        database.writeString(3, contact, tempTable);
 
         //check the number of new records
-        result = statement.executeQuery("select COUNT(*) from "+ tableName);
+        result = statement.executeQuery("select COUNT(*) from "+ tempTable);
         int rows = result.getInt("rows");
 
         assertEquals(3, rows);
@@ -86,16 +87,16 @@ public class CrawlerDBTest {
      */
     @Test
     public void testCheckLinks() throws Exception {
-        DB newDatabase = new CrawlerDB(connection);
+        DB newDatabase = new CrawlerDB(connection, tempTable, resultsTable);
 
         //Strings to be written
-        newDatabase.writeString(1, homepage);
-        newDatabase.writeString(2, portfolio);
-        newDatabase.writeString(3, contact);
+        newDatabase.writeString(1, homepage, tempTable);
+        newDatabase.writeString(2, portfolio, tempTable);
+        newDatabase.writeString(3, contact,  tempTable);
 
         //check that the links a present in table
-        assertTrue( newDatabase.checkLinks(homepage));
-        assertTrue( newDatabase.checkLinks(homepage));
-        assertTrue( newDatabase.checkLinks(homepage));
+        assertTrue( newDatabase.checkLinks(homepage,tempTable));
+        assertTrue( newDatabase.checkLinks(portfolio, tempTable));
+        assertTrue( newDatabase.checkLinks(contact, tempTable));
     }
 }
