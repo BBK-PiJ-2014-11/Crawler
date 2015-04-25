@@ -14,14 +14,16 @@ public interface DB {
      *
      * @param priority  the depth scraped
      * @param url the link to be stored
+     * @param tableName the name of the table be written to
      */
-    void writeString(int priority, String url) throws SQLException;
+    void writeString(int priority, String url, String tableName) throws SQLException;
 
     /**
      * Checks if the current link is already present in designated table
      *
      * @param url the link to be checked
      * @return true if link is already present table, false if not
-     */
-    boolean checkLinks (String url) throws SQLException;
+     * @param tableName the name of the table be checked
+    */
+    boolean checkLinks (String url, String tableName) throws SQLException;
 }
