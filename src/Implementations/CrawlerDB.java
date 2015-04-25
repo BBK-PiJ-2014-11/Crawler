@@ -10,42 +10,46 @@ import java.sql.*;
  */
 public class CrawlerDB implements DB {
 
-    public static final String JDBC_URL = "jdbc:derby:memory:testdb;create=true";
+    public static String db_url = "jdbc:derby:memory:testdb;create=true";
     private Statement statement;
-    private Connection connection = DriverManager.getConnection(JDBC_URL);
+    private Connection connection = DriverManager.getConnection(db_url);
+    private String tempTable;
+    private String resultsTable;
 
     /**
      * CrawlerDB class constructor
      *
-     * Creates a new database with two (empty table) - one for temp (to be crawled)links
-     * and one for final (crawled links)
+     * Creates a new database with two (empty table) - one for temp (to be crawled) links
+     * and one for final (crawled links). Table names are passed as @params
      */
-    public CrawlerDB(Connection connection) throws SQLException {
+    public CrawlerDB(Connection connection, String tempTable, String resultsTable) throws SQLException {
 
         this.connection = connection;
+        this.tempTable = tempTable;
+        this.resultsTable = resultsTable;
         //statement.execute("drop table tempTable");
         //statement.execute("drop table resultsTable");
-        connection.createStatement().execute("create table tempTable" + "(priority int, url varchar(2000) not null) ");
-        connection.createStatement().execute("create table resultsTable" + "(priority int, url varchar(2000) not null)");
+        connection.createStatement().execute("create table " +tempTable+ "(priority int, url varchar(2000) not null) ");
+        connection.createStatement().execute("create table " +resultsTable+ "(priority int, url varchar(2000) not null)");
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void writeString(int priority, String url) throws SQLException {
+    public void writeString(int priority, String url, String tableName) throws SQLException {
         statement = connection.createStatement();
-        statement.executeUpdate("insert into"+" tempTable"+ " values (" + priority + ", '" + url + "')");
+        statement.executeUpdate("insert into "  +tableName+ " values (" + priority + ", '" + url + "')");
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean checkLinks(String url) throws SQLException {
+    public boolean checkLinks(String url, String tableName) throws SQLException {
         ResultSet result;
         statement = connection.createStatement();
-        result = statement.executeQuery("select * from tempTable where" + " url =' " + url + " ' ");
+        result = statement.executeQuery("select * from " +tableName+ " where" + " url =' " + url + " ' ");
         return result.next();
     }
 }
