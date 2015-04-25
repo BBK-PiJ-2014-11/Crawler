@@ -1,12 +1,16 @@
 package Implementations;
 
 import Interfaces.Crawler;
+import Interfaces.DB;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 /**
@@ -17,8 +21,6 @@ import java.util.List;
 public class WebCrawler implements Crawler {
 
     private HTMLRead reader;
-    private String filename;
-    private File database;
     private int maxBreath;
     private int maxDepth;
     private int priorityNo;
@@ -27,15 +29,19 @@ public class WebCrawler implements Crawler {
     private String base; // picks up any base link found
     private List scrapedLinks;
 
+    //database setup
+    private static String dbName = "crawlerDB";
+    private static String tempTable = "tempTable";
+    private static String resultsTable = "resultsTable";
+    public static String db_url = "jdbc:derby:memory:"+dbName+"+;create=true";
+    private Connection connection = DriverManager.getConnection(db_url);
     /**
      * WebCrawler class constructor
      *
      * Creates a new instance of the web crawler
      */
-    public WebCrawler() throws MalformedURLException {
+    public WebCrawler() throws MalformedURLException, SQLException {
         reader = new HTMLRead();
-        filename = "";
-        database = new File(filename);
         maxBreath = 11; //TEMP VALUE
         maxDepth = 11; //TEMP VALUE
         priorityNo = 0;
@@ -47,7 +53,8 @@ public class WebCrawler implements Crawler {
      * {@inheritDoc}
      */
     @Override
-    public void crawl(URL url, String file) throws IOException {
+    public void crawl(URL url) throws IOException, SQLException {
+
         currentPage =  url;
         InputStream is = url.openStream();
         scrapedLinks = getLinks(is);
@@ -57,7 +64,7 @@ public class WebCrawler implements Crawler {
      * {@inheritDoc}
      */
     @Override
-    public List<URL> getLinks(InputStream is) throws IOException {
+    public List<String> getLinks(InputStream is) throws IOException {
         List urlList = new LinkedList<>();
         String url;
         String element;
