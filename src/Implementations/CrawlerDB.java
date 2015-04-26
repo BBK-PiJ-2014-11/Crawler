@@ -3,6 +3,9 @@ package Implementations;
 import Interfaces.DB;
 
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * {@inheritDoc}
  *
@@ -47,9 +50,9 @@ public class CrawlerDB implements DB {
      */
     @Override
     public boolean checkLinks(String url, String tableName) throws SQLException {
-        ResultSet result;
+        ResultSet results;
         statement = connection.createStatement();
-        result = statement.executeQuery("select * from " +tableName+ " where" + " url =' " + url + " ' ");
-        return result.next();
+        results = statement.executeQuery("select * from " +tableName+ " where" + " url =' " + url + " ' ");
+        return results.next();
     }
 }
