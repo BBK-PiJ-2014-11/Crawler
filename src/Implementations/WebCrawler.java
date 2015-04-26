@@ -3,7 +3,6 @@ package Implementations;
 import Interfaces.Crawler;
 import Interfaces.DB;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -64,7 +63,7 @@ public class WebCrawler implements Crawler {
             database.writeString(0, currentPage.toString(), tempTable);
 
             //scrape links from first page
-            InputStream is = url.openStream();
+            InputStream is = currentPage.openStream();
             scrapedLinks = getLinks(is);
             is.close();
 
@@ -78,6 +77,9 @@ public class WebCrawler implements Crawler {
                     }
                 }
             }
+
+            //write url of page scraped to results table
+            database.writeString(0, currentPage.toString(), resultsTable);
         }
     }
 
@@ -107,7 +109,7 @@ public class WebCrawler implements Crawler {
                         if (url.equals("#") || url.equals(currentPage.toString())) {
                             System.out.println("Link same page");
                         //remove Strings contain spanning >1 tags
-                        } else if (url.contains("<") || url.contains("</")) {
+                        } else if (url.contains("<") || url.contains(">")) {
                             System.out.println("non link found");
                         }else{
                             urlList.add(url);
