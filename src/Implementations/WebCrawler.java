@@ -42,7 +42,7 @@ public class WebCrawler implements Crawler {
     public WebCrawler() throws MalformedURLException, SQLException {
         reader = new HTMLRead();
         maxBreath = 111; //TEMP VALUE
-        maxDepth = 11; //TEMP VALUE
+        maxDepth = 2; //TEMP VALUE
         priorityNo = 0;
         currentPage =  new URL ("http://xyz.com/"); //INITIAL VALUE TO PREVENT NULL POINTER EXCEPTION
         scrapedLinks = new LinkedList<>();
@@ -85,6 +85,10 @@ public class WebCrawler implements Crawler {
             if(!database.checkLinks(currentPage.toString(), resultsTable)){
                 database.writeString(0, currentPage.toString(), tempTable);
             }
+
+            //set next page to be scraped
+            String newCurrent = (scrapedLinks.get(0).toString());
+            currentPage = new URL (newCurrent);
         }
     }
 
