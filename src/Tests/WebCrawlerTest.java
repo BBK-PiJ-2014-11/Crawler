@@ -100,6 +100,29 @@ public class WebCrawlerTest {
     }
 
     /**
+     * Test to check if mulitple sites can be crawled by using page with
+     * small number of internal links
+     *
+     * Test should return table values
+     */
+    @Test
+    public void testCrawlSeveralSites() throws IOException, SQLException {
+        URL url = new URL ("http://ehshan.com/crawler");
+        crawler.crawl(url);
+
+        //check setup connection
+        String dbName = "crawlerDB";
+        String db_url = "jdbc:derby:memory:"+dbName+"+;create=true";
+        Connection connection =  DriverManager.getConnection(db_url);
+
+        //test for records with priority of 0
+        Statement statement = connection.createStatement();
+        ResultSet result = statement.executeQuery("select count(*) from  tempTable"+ " where priority = "+ 0);
+        int record = result.getInt(0);
+        assertEquals(1, record );
+    }
+
+    /**
      * Test to check if html file can be successfully scraped for links
      *
      * Test should return a list contain all links found, as Strings
