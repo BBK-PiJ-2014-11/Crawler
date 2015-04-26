@@ -113,13 +113,13 @@ public class WebCrawler implements Crawler {
                         } else {
                             url = reader.readString(is, '>', (char) -1);
                         }
-                        System.out.println("Found link = " + url);
+                        //System.out.println("Found link = " + url);
                         //remove link referring to same page
                         if (url.equals("#") || url.equals(currentPage.toString())) {
-                            System.out.println("Link same page");
+                            //System.out.println("Link same page");
                         //remove Strings contain spanning >1 tags
                         } else if (url.contains("<") || url.contains(">")) {
-                            System.out.println("non link found");
+                            //System.out.println("non link found");
                         }else{
                             urlList.add(url);
                         }
@@ -152,7 +152,7 @@ public class WebCrawler implements Crawler {
                 count++;
             }
         }
-        System.out.println("homepage = "+currentHome);
+//        System.out.println("homepage = "+currentHome);
         return currentHome;
     }
 
@@ -209,7 +209,7 @@ public class WebCrawler implements Crawler {
             String temp = reader.readString(is, '"', (char) -1);
             tempBase = tempBase + (temp.substring(0, temp.length() - 1))+"/";
         }
-        System.out.println("base = "+tempBase);
+//        System.out.println("base = "+tempBase);
         return tempBase;
     }
 }
